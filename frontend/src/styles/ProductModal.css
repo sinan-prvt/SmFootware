@@ -1,0 +1,195 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: white;
+  border: none;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.modal-gallery {
+  position: relative;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.gallery-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.gallery-prev,
+.gallery-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.gallery-prev {
+  left: 1rem;
+}
+
+.gallery-next {
+  right: 1rem;
+}
+
+.gallery-prev:hover,
+.gallery-next:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.image-counter {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.modal-info {
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-info h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.modal-info .category {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.modal-info .price {
+  color: #27ae60;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.modal-info .description {
+  color: #555;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  flex: 1;
+  text-align: center;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1fad52;
+}
+
+.thumbnail-gallery {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+}
+
+.thumbnail.active {
+  border-color: #667eea;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+    max-height: 95vh;
+  }
+
+  .modal-gallery {
+    min-height: 300px;
+  }
+
+  .modal-info {
+    padding: 1.5rem;
+  }
+
+  .whatsapp-btn {
+    padding: 10px 16px;
+  }
+}

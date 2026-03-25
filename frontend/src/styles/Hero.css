@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Landing Page Restoring Scroll */
+.public-catalog {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+.hero-container {
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle at center, #ffffff 0%, #ebebeb 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP NAV */
+.hero-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.hamburger-line {
+  width: 30px;
+  height: 2px;
+  background-color: #000;
+}
+
+.nav-cart {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-count {
+  font-size: 10px;
+  vertical-align: super;
+  border: 1px solid #000;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1px;
+}
+
+/* MAIN CONTENT */
+.hero-content {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BIG TEXT BACKGROUND */
+.bg-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 28vw;
+  font-weight: 700;
+  color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 0.8;
+  white-space: nowrap;
+  z-index: 1;
+  text-shadow: 0px 5px 25px rgba(0,0,0,0.03);
+}
+
+/* DIAGONAL LINES */
+.bg-lines .line {
+  position: absolute;
+  background-color: #000;
+  width: 1px;
+  height: 40vh;
+  z-index: 2;
+  opacity: 0.3;
+}
+
+.line-1 {
+  top: 60%;
+  left: 31%;
+  transform: rotate(45deg);
+}
+
+.line-2 {
+  top: 15%;
+  right: 36%;
+  transform: rotate(45deg);
+}
+
+/* ORBITING SPHERES */
+.sphere {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #4a4a4a, #0b0b0b);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+  z-index: 15;
+}
+
+/* Sizes */
+.sphere-xl { width: 130px; height: 130px; }
+.sphere-l { width: 90px; height: 90px; }
+.sphere-m { width: 65px; height: 65px; }
+.sphere-s { width: 45px; height: 45px; }
+.sphere-xs { width: 25px; height: 25px; }
+.sphere-small { width: 18px; height: 18px; }
+
+/* Positions */
+.pos-1 { top: 22%; left: 30%; z-index: 5; }
+.pos-2 { top: 32%; right: 30%; z-index: 15; }
+.pos-3 { bottom: 33%; right: 28%; z-index: 5; }
+.pos-4 { bottom: 38%; left: 41%; z-index: 15; }
+.pos-5 { top: 43%; left: 20%; z-index: 15; }
+.pos-6 { top: 12%; right: 38%; z-index: 5; }
+
+/* SHOE */
+.shoe-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-45%, -50%);
+  z-index: 10;
+  width: 55vw;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shoe-img {
+  width: 100%;
+  height: auto;
+  transform: rotate(-10deg) scale(1.1);
+  filter: drop-shadow(0 40px 50px rgba(0,0,0,0.5));
+  mix-blend-mode: multiply;
+}
+
+/* TEXT ELEMENTS */
+.info-text {
+  position: absolute;
+  left: 12vw;
+  top: 55%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+  max-width: 260px;
+  color: #333;
+  z-index: 20;
+}
+
+.side-text {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  z-index: 20;
+}
+
+.left-side {
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+}
+
+.right-side {
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+}
+
+/* BOTTOM LINKS */
+.bottom-links {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 5vw;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  z-index: 20;
+}
+
+.bottom-link {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #000;
+}
