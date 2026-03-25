@@ -21,9 +21,9 @@ function ProductGrid({ products, loading, onSelectProduct }) {
           {product.images && product.images.length > 0 && (
             <img
               src={
-                product.images[0].url.startsWith('http')
-                  ? product.images[0].url
-                  : `http://localhost:8000${product.images[0].url}`
+                (product.images[0].url || product.images[0].image)?.startsWith('http')
+                  ? (product.images[0].url || product.images[0].image)
+                  : `http://localhost:8000${product.images[0].url || product.images[0].image}`
               }
               alt={product.images[0].alt_text || product.name}
               className="product-image"
