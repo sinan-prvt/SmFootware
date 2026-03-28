@@ -3,33 +3,35 @@ import '../../styles/ProductFilters.css';
 
 function ProductFilters({ categories, filters, setFilters }) {
   return (
-    <aside className="filters">
-      <h2>Filter</h2>
-
-      <div className="filter-group">
+    <div className="app-filters">
+      <div className="search-bar-container">
         <input
           type="text"
-          placeholder="Search products..."
+          placeholder="Search items..."
           value={filters.search}
           onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-          className="search-input"
+          className="app-search-input"
         />
       </div>
 
-      <div className="filter-group">
-        <h3>Categories</h3>
-        <select
-          value={filters.category}
-          onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-          className="category-select"
+      <div className="category-pills-container">
+        <button
+          className={`category-pill ${filters.category === '' ? 'active' : ''}`}
+          onClick={() => setFilters({ ...filters, category: '' })}
         >
-          <option value="">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>{cat.name}</option>
-          ))}
-        </select>
+          All
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            className={`category-pill ${filters.category === String(cat.id) ? 'active' : ''}`}
+            onClick={() => setFilters({ ...filters, category: String(cat.id) })}
+          >
+            {cat.name}
+          </button>
+        ))}
       </div>
-    </aside>
+    </div>
   );
 }
 
