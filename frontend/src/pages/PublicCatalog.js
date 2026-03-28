@@ -177,6 +177,24 @@ function PublicCatalog() {
         />
       </div>
 
+      <footer className="catalog-footer">
+        <div className="footer-content">
+          <div className="footer-brand">
+            <h3>SM FOOTWARE</h3>
+            <p>Premium authentic sneakers & apparel.</p>
+          </div>
+          <div className="footer-links">
+            <a href="/admin">Vendor Portal</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} SM Footware. All rights reserved.</p>
+        </div>
+      </footer>
+
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}

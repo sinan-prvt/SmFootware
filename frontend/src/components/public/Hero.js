@@ -16,8 +16,11 @@ function Hero() {
           <div className="hamburger-line"></div>
           <div className="hamburger-line"></div>
         </div>
-        <div className="nav-cart">
-          SM FOOTWARE
+        <div className="nav-actions" style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+          <a href="/admin" className="nav-login" style={{textDecoration: 'none', color: '#000', fontWeight: '700', fontSize: '14px', letterSpacing: '1px'}}>LOGIN</a>
+          <div className="nav-cart" style={{fontWeight: '700', fontSize: '14px', letterSpacing: '1px'}}>
+            SM FOOTWARE
+          </div>
         </div>
       </nav>
 
