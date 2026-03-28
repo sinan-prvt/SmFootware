@@ -55,12 +55,6 @@ function Hero() {
           />
         </div>
 
-        {/* Left Informational Text */}
-        <div className="info-text">
-          Our purpose is to unite the world through sport<br />
-          to create a healthy planet, active communities<br />
-          and an equal playing field for all.
-        </div>
 
         {/* Side Text / Annotations */}
         <div className="side-text left-side">SERIES 08</div>

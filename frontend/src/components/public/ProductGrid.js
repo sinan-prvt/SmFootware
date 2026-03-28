@@ -1,12 +1,26 @@
 import React from 'react';
 import '../../styles/ProductGrid.css';
 
-function ProductGrid({ products, loading, onSelectProduct }) {
-  if (loading) {
-    return <div className="loading">Loading products...</div>;
+function ProductGrid({ products, loading, onSelectProduct, onLoadMore, hasMore }) {
+  // Show 6 skeletons for initial load when no products exist yet
+  if (loading && products.length === 0) {
+    return (
+      <div className="product-grid">
+        {[...Array(6)].map((_, i) => (
+          <div key={`skeleton-${i}`} className="skeleton-card">
+            <div className="skeleton-img"></div>
+            <div className="skeleton-info">
+              <div className="skeleton-text medium"></div>
+              <div className="skeleton-text short"></div>
+              <div className="skeleton-text short"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
-  if (products.length === 0) {
+  if (!loading && products.length === 0) {
     return <div className="no-products">No products found</div>;
   }
 
@@ -39,6 +53,16 @@ function ProductGrid({ products, loading, onSelectProduct }) {
           </div>
         </div>
       ))}
+
+      {hasMore && (
+        <button 
+          className="load-more-btn" 
+          onClick={onLoadMore}
+          disabled={loading}
+        >
+          {loading ? 'Loading...' : 'Load More Products'}
+        </button>
+      )}
     </div>
   );
 }

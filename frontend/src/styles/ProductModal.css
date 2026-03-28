@@ -8,41 +8,33 @@
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center; /* Desktop centered vertically */
   z-index: 1000;
+  padding: 1rem;
 }
 
 .modal-content {
   background: white;
   width: 100%;
-  max-width: 480px;
+  max-width: 900px;
   max-height: 90vh;
-  border-radius: 24px 24px 0 0;
+  border-radius: 16px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Desktop side-by-side */
   position: relative;
-  overflow-y: auto;
-  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
-  padding-bottom: 24px;
+  overflow: hidden; /* For corner rounding */
+  animation: fadeIn 0.3s ease forwards;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
 }
 
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
+/* Hide mobile pull indicator on Desktop */
 .modal-content::before {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 4px;
-  background: #e0e0e0;
-  border-radius: 4px;
-  z-index: 20;
+  display: none;
 }
 
 .close-btn {
@@ -61,6 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .close-btn:hover {
@@ -70,12 +63,11 @@
 .modal-gallery {
   position: relative;
   background-color: #f8f9fa;
-  min-height: 320px;
+  min-height: 400px;
+  flex: 1; /* Take half width on desktop */
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 24px 24px 0 0;
-  padding-top: 2rem;
 }
 
 .gallery-image {
@@ -126,10 +118,12 @@
 }
 
 .modal-info {
-  padding: 1.5rem;
+  padding: 2.5rem 2rem;
   display: flex;
+  flex: 1; /* Take half width on desktop */
   flex-direction: column;
   gap: 0.75rem;
+  overflow-y: auto; /* Desktop scrolling is independent */
 }
 
 .modal-info h2 {
@@ -206,8 +200,53 @@
   opacity: 1;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .modal-overlay {
+    align-items: flex-end; /* Snap to bottom */
+    padding: 0;
+  }
+
   .modal-content {
-    border-radius: 20px 20px 0 0;
+    flex-direction: column;
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    padding-bottom: 24px;
+    overflow-y: auto; /* Scroll entire sheet */
+    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-content::before {
+    display: block; /* Show pull indicator */
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    z-index: 20;
+  }
+
+  .modal-gallery {
+    min-height: 320px;
+    padding-top: 24px; /* Space for pull indicator */
+    flex: none;
+  }
+
+  .modal-info {
+    padding: 1.5rem;
+    flex: none;
+    overflow-y: visible; /* Let parent scroll */
+  }
+
+  .whatsapp-btn {
+    padding: 14px 16px;
   }
 }

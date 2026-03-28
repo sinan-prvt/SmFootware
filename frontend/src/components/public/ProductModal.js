@@ -57,16 +57,26 @@ function ProductModal({ product, onClose }) {
 
           <p className="description">{product.description}</p>
 
-          {product.sizes && product.sizes.length > 0 && (
-            <div className="product-sizes" style={{marginTop: '15px'}}>
-              <h4 style={{marginBottom: '8px', fontSize: '13px', textTransform: 'uppercase'}}>Available Sizes:</h4>
-              <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                {product.sizes.map((size) => (
-                  <span key={size} style={{padding: '5px 10px', border: '1px solid #ccc', borderRadius: '4px', fontSize: '13px'}}>{size}</span>
-                ))}
+          {(() => {
+            const sizeArray = Array.isArray(product.sizes) 
+              ? product.sizes 
+              : typeof product.sizes === 'string' 
+                ? product.sizes.split(',').map(s => s.trim()).filter(Boolean)
+                : [];
+            
+            if (sizeArray.length === 0) return null;
+
+            return (
+              <div className="product-sizes" style={{marginTop: '15px'}}>
+                <h4 style={{marginBottom: '8px', fontSize: '13px', textTransform: 'uppercase'}}>Available Sizes:</h4>
+                <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                  {sizeArray.map((size) => (
+                    <span key={size} style={{padding: '5px 10px', border: '1px solid #ccc', borderRadius: '4px', fontSize: '13px'}}>{size}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           <div className="modal-actions">
             <button className="whatsapp-btn" onClick={handleWhatsApp}>

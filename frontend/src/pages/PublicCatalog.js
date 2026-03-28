@@ -83,11 +83,25 @@ function PublicCatalog() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [filters, setFilters] = useState({ category: '', search: '' });
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     fetchCategories();
-    fetchProducts();
+  }, []);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setPage(1);
+    fetchProducts(1);
   }, [filters]);
+
+  // Append items when page > 1 changes
+  useEffect(() => {
+    if (page > 1) {
+      fetchProducts(page);
+    }
+  }, [page]);
 
   const fetchCategories = async () => {
     try {
@@ -101,23 +115,38 @@ function PublicCatalog() {
     }
   };
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (currentPage = 1) => {
+    if (currentPage === 1) setLoading(true);
+
     try {
       let url = 'http://localhost:8000/api/products/';
       const params = new URLSearchParams();
 
       if (filters.category) params.append('category', filters.category);
       if (filters.search) params.append('search', filters.search);
+      if (currentPage > 1) params.append('page', currentPage);
 
       if (params.toString()) url += '?' + params.toString();
 
       const response = await fetch(url);
       const data = await response.json();
+      
       const results = data.results || data;
-      setProducts(results.length > 0 ? results : DUMMY_PRODUCTS);
+      const isPaginated = data.next !== undefined;
+      
+      if (currentPage === 1) {
+        setProducts(results.length > 0 ? results : DUMMY_PRODUCTS);
+      } else {
+        setProducts(prev => [...prev, ...results]);
+      }
+      
+      setHasMore(isPaginated ? data.next !== null : false);
     } catch (err) {
       console.error('Error fetching products:', err);
-      setProducts(DUMMY_PRODUCTS);
+      if (currentPage === 1) {
+        setProducts(DUMMY_PRODUCTS);
+        setHasMore(false);
+      }
     } finally {
       setLoading(false);
     }
@@ -143,6 +172,8 @@ function PublicCatalog() {
           products={products}
           loading={loading}
           onSelectProduct={setSelectedProduct}
+          onLoadMore={() => setPage(prev => prev + 1)}
+          hasMore={hasMore}
         />
       </div>
 

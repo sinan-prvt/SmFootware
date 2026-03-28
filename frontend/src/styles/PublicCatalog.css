@@ -6,9 +6,9 @@
 .catalog-header {
   background: #f8f9fa;
   color: #000;
-  padding: 2rem 1.5rem 1rem 1.5rem;
+  padding: 3rem 2rem 1.5rem 2rem;
   text-align: left;
-  max-width: 480px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -28,12 +28,11 @@
 .catalog-container {
   display: flex;
   flex-direction: column;
-  max-width: 480px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
   background: #f8f9fa;
   min-height: 100vh;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
 .no-products {
