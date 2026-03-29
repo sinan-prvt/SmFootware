@@ -6,6 +6,7 @@ function CategoryManager() {
   const [formData, setFormData] = useState({ name: '' });
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem('admin_token');
 
@@ -14,16 +15,41 @@ function CategoryManager() {
   }, []);
 
   const fetchCategories = async () => {
+    setLoading(true);
+    const startTime = Date.now();
     try {
       const response = await fetch('http://localhost:8000/api/categories/', {
         headers: token ? { 'Authorization': `Token ${token}` } : {},
       });
       const data = await response.json();
-      setCategories(data.results || data);
+      
+      const elapsed = Date.now() - startTime;
+      const delay = Math.max(0, 2500 - elapsed);
+
+      setTimeout(() => {
+        setCategories(data.results || data);
+        setLoading(false);
+      }, delay);
     } catch (err) {
       setError('Error fetching categories');
+      setLoading(false);
     }
   };
+
+  const renderSkeletonCategories = () => (
+    Array(4).fill(0).map((_, i) => (
+      <div key={`skel-cat-${i}`} className="category-item skeleton-item">
+        <div>
+          <div className="skeleton-box" style={{ width: '120px', height: '20px', marginBottom: '8px' }}></div>
+          <div className="skeleton-box" style={{ width: '60px', height: '12px' }}></div>
+        </div>
+        <div className="category-actions">
+           <div className="skeleton-box skeleton-action"></div>
+           <div className="skeleton-box skeleton-action"></div>
+        </div>
+      </div>
+    ))
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,7 +126,7 @@ function CategoryManager() {
       </form>
 
       <div className="category-list">
-        {categories.map((cat) => (
+        {loading ? renderSkeletonCategories() : categories.map((cat) => (
           <div key={cat.id} className="category-item">
             <div>
               <h3>{cat.name}</h3>

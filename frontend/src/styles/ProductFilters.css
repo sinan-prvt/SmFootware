@@ -8,7 +8,7 @@
 .filter-controls-upper {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3.5rem; /* Increased gap for 'Elite' feel */
 }
 
 .search-box {
@@ -21,13 +21,15 @@
 
 .search-icon {
   position: absolute;
-  left: 0;
-  color: #999;
+  left: 8px; /* Fixed alignment: no longer touching the line edge */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bbb;
 }
 
 .search-input-premium {
   width: 100%;
-  padding: 12px 12px 12px 35px;
+  padding: 12px 12px 12px 45px; /* Increased padding-left for icon */
   border: none;
   border-bottom: 1.5px solid #eee;
   background: transparent;
@@ -45,9 +47,10 @@
 .category-tags-scroll {
   width: 100%;
   overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar for clean look */
+  scrollbar-width: none;
   -ms-overflow-style: none;
-  padding-bottom: 15px;
+  padding: 10px 0 15px 0; /* Extra vertical space */
+  margin-top: 0.5rem;
 }
 
 .category-tags-scroll::-webkit-scrollbar {

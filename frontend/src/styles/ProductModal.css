@@ -264,70 +264,117 @@
 /* MOBILE OVERRIDES */
 @media (max-width: 768px) {
   .modal-overlay {
-    padding: 0;
-    align-items: flex-end;
+    padding: 8vw 5vw;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .modal-content {
     flex-direction: column;
-    border-radius: 20px 20px 0 0;
-    max-height: 92vh;
-    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 20px;
+    max-height: 85vh;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: modalPopIn 0.4s cubic-bezier(0.17, 0.84, 0.44, 1);
   }
 
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-    }
-
-    to {
-      transform: translateY(0);
-    }
+  @keyframes modalPopIn {
+    from { opacity: 0; transform: scale(0.9) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
   }
 
   .modal-content::before {
-    content: '';
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 5px;
-    background: #dddddd;
-    border-radius: 10px;
-    z-index: 100;
+    display: none;
   }
 
   .modal-gallery {
-    padding: 20px;
-    min-height: auto;
-    aspect-ratio: 1/1;
-    background-color: #f6f6f6;
+    padding: 10px;
+    height: 220px;
+    max-height: 220px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   .gallery-image {
-    max-height: 80vw;
+    max-width: 95%;
+    max-height: 95%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.08));
   }
 
   .modal-info {
-    padding: 30px 20px 40px;
-    overflow-y: visible;
+    padding: 15px 15px 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .modal-info h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+    width: 100%;
+  }
+
+  .modal-info .category {
+    font-size: 11px;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+
+  .modal-info .price {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-weight: 800;
   }
 
   .close-btn {
-    top: 15px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
   .whatsapp-btn {
-    padding: 16px;
-    font-size: 15px;
+    padding: 14px;
+    font-size: 14px;
+    border-radius: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Centered Technical Specs */
+  .technical-specs-simple {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .colors-section div, .sizes-section div {
+    justify-content: center !important;
+  }
+
+  .thumbnail-gallery {
+    margin: 0 0 15px 0 !important;
+    justify-content: center !important;
+    display: flex !important;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .thumbnail {
+    width: 40px;
+    height: 40px;
   }
 }

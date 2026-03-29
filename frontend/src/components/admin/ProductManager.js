@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/ProductManager.css';
 import { toast } from 'react-hot-toast';
 
-function ProductManager({ showOnly = 'form' }) {
+function ProductManager({ activeTab, setActiveTab }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -27,6 +27,7 @@ function ProductManager({ showOnly = 'form' }) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem('admin_token');
 
@@ -39,9 +40,11 @@ function ProductManager({ showOnly = 'form' }) {
         fetchProducts();
     }, 500);
     return () => clearTimeout(timer);
-  }, [searchTerm, showOnly]);
+  }, [searchTerm, activeTab]);
 
   const fetchProducts = async (url) => {
+    setLoading(true);
+    const startTime = Date.now();
     try {
       let finalUrl = url || `http://localhost:8000/api/products/?search=${searchTerm}`;
       const response = await fetch(finalUrl, {
@@ -49,26 +52,67 @@ function ProductManager({ showOnly = 'form' }) {
       });
       const data = await response.json();
       
-      if (data.results) {
-        setProducts(data.results);
-        setTotalCount(data.count);
-        setNextUrl(data.next);
-        setPrevUrl(data.previous);
-        
-        if (finalUrl.includes('page=')) {
-          const pageStr = finalUrl.split('page=')[1].split('&')[0];
-          setCurrentPage(parseInt(pageStr));
+      // Calculate remaining time for the 1.2s skeleton display (Snappier feel)
+      const elapsed = Date.now() - startTime;
+      const delay = Math.max(0, 1200 - elapsed);
+
+      setTimeout(() => {
+        if (data.results) {
+          setProducts(data.results);
+          setTotalCount(data.count);
+          setNextUrl(data.next);
+          setPrevUrl(data.previous);
+          
+          if (finalUrl.includes('page=')) {
+            const pageStr = finalUrl.split('page=')[1].split('&')[0];
+            setCurrentPage(parseInt(pageStr));
+          } else {
+            setCurrentPage(1);
+          }
         } else {
-          setCurrentPage(1);
+          setProducts(data);
+          setTotalCount(data.length);
         }
-      } else {
-        setProducts(data);
-        setTotalCount(data.length);
-      }
+        setLoading(false);
+      }, delay);
     } catch (err) {
       setError('Error fetching products');
+      setLoading(false);
     }
   };
+
+  const renderSkeletonRows = () => (
+    Array(6).fill(0).map((_, i) => (
+      <tr key={`skel-${i}`}>
+        <td className="col-article">
+          <div className="skeleton-box skeleton-thumb"></div>
+          <div className="skeleton-box" style={{ width: '40px', height: '10px', marginTop: '5px' }}></div>
+        </td>
+        <td className="col-product">
+          <div className="skeleton-box skeleton-name"></div>
+          <div className="skeleton-box skeleton-brand"></div>
+        </td>
+        <td className="col-classification">
+          <div className="pill-classification-container">
+            <div className="skeleton-box skeleton-badge"></div>
+            <div className="skeleton-box skeleton-badge" style={{ width: '60px' }}></div>
+          </div>
+        </td>
+        <td className="col-status">
+          <div className="skeleton-box skeleton-badge" style={{ width: '100px', height: '30px' }}></div>
+        </td>
+        <td className="col-price">
+          <div className="skeleton-box skeleton-price"></div>
+        </td>
+        <td className="col-actions">
+          <div className="action-button-group">
+            <div className="skeleton-box skeleton-action"></div>
+            <div className="skeleton-box skeleton-action"></div>
+          </div>
+        </td>
+      </tr>
+    ))
+  );
 
   const fetchCategories = async () => {
     try {
@@ -156,6 +200,7 @@ function ProductManager({ showOnly = 'form' }) {
         setEditingId(null);
         fetchProducts();
         toast.success(editingId ? 'Product updated successfully!' : 'Product added successfully!');
+        if (editingId) setActiveTab('inventory'); // Return to list after edit
       } else {
         const errorData = await response.json();
         toast.error(`Error: ${JSON.stringify(errorData)}`);
@@ -182,6 +227,7 @@ function ProductManager({ showOnly = 'form' }) {
     setEditingId(product.id);
     setSelectedFiles([]);
     setImagePreviews([]);
+    setActiveTab('add-product'); // Switch to form tab
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -288,7 +334,7 @@ function ProductManager({ showOnly = 'form' }) {
         </div>
       )}
 
-      {showOnly === 'form' && (
+      {activeTab === 'add-product' && (
         <div className="form-fade-in">
           <div className="manager-header">
             <div className="header-pill">PRODUCT MANAGEMENT</div>
@@ -307,6 +353,7 @@ function ProductManager({ showOnly = 'form' }) {
                       className="input-premium"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="e.g. Nike Air Max Plus"
                       required
                     />
                   </div>
@@ -317,6 +364,7 @@ function ProductManager({ showOnly = 'form' }) {
                       className="input-premium"
                       value={formData.brand_name}
                       onChange={(e) => setFormData({ ...formData, brand_name: e.target.value })}
+                      placeholder="e.g. Nike"
                     />
                   </div>
                 </div>
@@ -360,6 +408,7 @@ function ProductManager({ showOnly = 'form' }) {
                       className="input-premium"
                       value={formData.price}
                       onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                      placeholder="e.g. 8999"
                     />
                   </div>
                   <div className="input-with-label">
@@ -369,6 +418,7 @@ function ProductManager({ showOnly = 'form' }) {
                       className="input-premium"
                       value={formData.article}
                       onChange={(e) => setFormData({ ...formData, article: e.target.value })}
+                      placeholder="e.g. NAK-102-WH"
                     />
                   </div>
                 </div>
@@ -456,20 +506,20 @@ function ProductManager({ showOnly = 'form' }) {
         </div>
       )}
 
-      {showOnly === 'list' && (
+      {activeTab === 'inventory' && (
         <div className="inventory-dashboard">
           <div className="dashboard-stats-grid">
             <div className="stat-box">
               <span className="stat-header">Total Products</span>
-              <span className="stat-number">{totalCount}</span>
+              {loading ? <div className="skeleton-box" style={{ width: '40px', height: '25px' }}></div> : <span className="stat-number">{totalCount}</span>}
             </div>
             <div className="stat-box">
               <span className="stat-header">Active Brands</span>
-              <span className="stat-number">{uniqueBrands}</span>
+              {loading ? <div className="skeleton-box" style={{ width: '30px', height: '25px' }}></div> : <span className="stat-number">{new Set(products.map(p => p.brand_name)).size}</span>}
             </div>
             <div className="stat-box">
               <span className="stat-header">System Status</span>
-              <span className="stat-status-pill green">ACTIVE</span>
+              {loading ? <div className="skeleton-box skeleton-badge" style={{ width: '60px' }}></div> : <span className="stat-status-pill green">ACTIVE</span>}
             </div>
           </div>
 
@@ -505,7 +555,7 @@ function ProductManager({ showOnly = 'form' }) {
                 </tr>
               </thead>
               <tbody>
-                {products.map((prod) => (
+                {loading ? renderSkeletonRows() : products.map((prod) => (
                   <tr key={prod.id} onClick={() => setSelectedProduct(prod)} className="clickable-row">
                     <td className="col-article">
                       <div className="article-thumb-mini">

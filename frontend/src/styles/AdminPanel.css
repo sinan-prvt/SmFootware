@@ -50,7 +50,7 @@
 /* MODERN PILL TABS */
 .admin-nav {
   background-color: #fff;
-  padding: 10px 20px;
+  padding: 15px 20px;
   display: flex;
   gap: 10px;
   border-bottom: 0px solid #eee;
@@ -115,4 +115,42 @@
   .admin-content {
     padding: 15px;
   }
+}
+
+/* GLOBAL SKELETON SHIMMER SYSTEM */
+.skeleton-box {
+  background: #f6f7f8;
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 20%,
+    #f6f7f8 40%,
+    #f6f7f8 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  display: inline-block;
+  position: relative;
+  animation: skeleton-shimmer 1.5s infinite linear forwards;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+.skeleton-thumb { width: 40px; height: 40px; border-radius: 8px; }
+.skeleton-name { width: 180px; height: 16px; margin-bottom: 8px; }
+.skeleton-brand { width: 100px; height: 12px; }
+.skeleton-price { width: 60px; height: 18px; }
+.skeleton-badge { width: 80px; height: 24px; border-radius: 100px; }
+.skeleton-action { width: 35px; height: 35px; border-radius: 8px; }
+
+/* MOBILE SKELETON OVERRIDES */
+@media (max-width: 768px) {
+  .skeleton-thumb { width: 75px; height: 75px; }
+  .skeleton-name { width: 70%; height: 14px; }
+  .skeleton-brand { width: 40%; height: 10px; }
+  .skeleton-price { width: 30%; height: 14px; }
 }

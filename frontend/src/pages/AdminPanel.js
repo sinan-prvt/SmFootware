@@ -45,8 +45,9 @@ function AdminPanel({ setIsAuthenticated }) {
       </nav>
 
       <main className="admin-content">
-        {activeTab === 'inventory' && <ProductManager showOnly="list" />}
-        {activeTab === 'add-product' && <ProductManager showOnly="form" />}
+        {(activeTab === 'inventory' || activeTab === 'add-product') && (
+          <ProductManager activeTab={activeTab} setActiveTab={setActiveTab} />
+        )}
         {activeTab === 'categories' && <CategoryManager />}
       </main>
     </div>

@@ -36,7 +36,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [IsAdminOrReadOnly]
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'description']
+    search_fields = ['name']
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -44,7 +44,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category']
-    search_fields = ['name', 'description']
+    search_fields = ['name', 'brand_name', 'article']
     ordering_fields = ['created_at', 'name', 'price']
     ordering = ['-created_at']
 
