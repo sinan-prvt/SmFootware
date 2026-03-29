@@ -92,7 +92,7 @@ function ProductModal({ product, onClose }) {
 
           <div className="modal-actions" style={{ marginTop: '30px' }}>
             {product.show_price && product.price && (
-              <p className="price" style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '20px' }}>${parseFloat(product.price).toFixed(2)}</p>
+              <p className="price" style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '20px' }}>₹{parseFloat(product.price).toLocaleString('en-IN')}</p>
             )}
             <button className="whatsapp-btn" onClick={handleWhatsApp}>
               📱 Contact on WhatsApp

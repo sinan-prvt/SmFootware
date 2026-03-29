@@ -30,6 +30,7 @@ class Product(models.Model):
     article = models.CharField(max_length=100, blank=True)
     colors = models.CharField(max_length=200, blank=True, help_text="Comma separated colors e.g. Black, Red, White")
     sizes = models.CharField(max_length=200, blank=True, help_text="Comma separated sizes e.g. 7, 8, 9, 10")
+    in_stock = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -49,7 +49,7 @@ function ProductGrid({ products, loading, onSelectProduct, onLoadMore, hasMore }
             <h3 className="product-title-premium">{product.name}</h3>
             <div className="product-bottom-meta">
               {product.show_price && product.price && (
-                <p className="price-premium">${parseFloat(product.price).toFixed(2)}</p>
+                <p className="price-premium">₹{parseFloat(product.price).toLocaleString('en-IN')}</p>
               )}
               {product.article && <span className="sku-tag">#{product.article}</span>}
             </div>
