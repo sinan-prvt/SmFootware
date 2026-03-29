@@ -5,6 +5,7 @@ import FeaturedSections from '../components/public/FeaturedSections';
 import ProductFilters from '../components/public/ProductFilters';
 import ProductGrid from '../components/public/ProductGrid';
 import ProductModal from '../components/public/ProductModal';
+import ScrollReveal from '../components/public/ScrollReveal';
 
 const DUMMY_CATEGORIES = [
   { id: 1, name: "Nike" },
@@ -151,14 +152,21 @@ function PublicCatalog() {
 
   return (
     <div className="public-catalog">
-      <Hero />
-      <FeaturedSections />
+      <ScrollReveal delay={0.2} threshold={0.01}>
+        <Hero />
+      </ScrollReveal>
 
-      <header className="catalog-header" id="collection">
-        <span className="superior-tag">SUPERIOR QUALITY</span>
-        <h1>OUR COLLECTION</h1>
-        <p>Explore our premium footwear selection</p>
-      </header>
+      <ScrollReveal threshold={0.1}>
+        <FeaturedSections />
+      </ScrollReveal>
+
+      <ScrollReveal threshold={0.2}>
+        <header className="catalog-header" id="collection">
+          <span className="superior-tag">SUPERIOR QUALITY</span>
+          <h1>OUR COLLECTION</h1>
+          <p>Explore our premium footwear selection</p>
+        </header>
+      </ScrollReveal>
 
       <div className="catalog-container">
         <ProductFilters
@@ -176,23 +184,25 @@ function PublicCatalog() {
         />
       </div>
 
-      <footer className="catalog-footer">
-        <div className="footer-content">
-          <div className="footer-brand">
-            <h3>SM FOOTWARE</h3>
-            <p>Premium authentic sneakers & apparel.</p>
+      <ScrollReveal threshold={0.1}>
+        <footer className="catalog-footer">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <h3>SM FOOTWARE</h3>
+              <p>Premium authentic sneakers & apparel.</p>
+            </div>
+            <div className="footer-links">
+              <a href="/admin">Vendor Portal</a>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Contact Us</a>
+            </div>
           </div>
-          <div className="footer-links">
-            <a href="/admin">Vendor Portal</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact Us</a>
+          <div className="footer-bottom">
+            <p>&copy; {new Date().getFullYear()} SM Footware. All rights reserved.</p>
           </div>
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} SM Footware. All rights reserved.</p>
-        </div>
-      </footer>
+        </footer>
+      </ScrollReveal>
 
       {selectedProduct && (
         <ProductModal

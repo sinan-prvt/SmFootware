@@ -3,6 +3,7 @@ import '../../styles/ProductModal.css';
 
 function ProductModal({ product, onClose }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isZoomMode, setIsZoomMode] = useState(false);
 
   useEffect(() => {
     // Lock background scroll
@@ -43,6 +44,8 @@ function ProductModal({ product, onClose }) {
               src={(currentImage.url || currentImage.image)?.startsWith('http') ? (currentImage.url || currentImage.image) : `http://localhost:8000${currentImage.url || currentImage.image}`}
               alt={currentImage.alt_text || product.name}
               className="gallery-image"
+              onClick={() => setIsZoomMode(true)}
+              style={{ cursor: 'zoom-in' }}
             />
           )}
 
@@ -133,6 +136,20 @@ function ProductModal({ product, onClose }) {
             </button>
           </div>
         </div>
+
+        {isZoomMode && currentImage && (
+          <div className="zoom-overlay" onClick={() => setIsZoomMode(false)}>
+            <button className="zoom-close">×</button>
+            <div className="zoomed-image-container">
+              <img
+                src={(currentImage.url || currentImage.image)?.startsWith('http') ? (currentImage.url || currentImage.image) : `http://localhost:8000${currentImage.url || currentImage.image}`}
+                alt={currentImage.alt_text || product.name}
+                className="zoomed-image"
+              />
+              <p className="zoom-hint">Tap anywhere to close</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

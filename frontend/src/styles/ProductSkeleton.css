@@ -1,22 +1,30 @@
 .product-skeleton-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 20px; /* Matched to real product card */
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
   display: flex;
   flex-direction: column;
   height: 100%;
+  border: 1px solid #f2f2f2;
+  animation: skeletonPulse 2s infinite ease-in-out;
+}
+
+@keyframes skeletonPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.995); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .skeleton-image-wrapper {
-  aspect-ratio: 1/1;
-  background-color: #f0f0f0;
+  height: 220px; /* Matched to real image container height */
+  background-color: #f7f7f7;
   position: relative;
   overflow: hidden;
 }
 
 .skeleton-info {
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -24,16 +32,16 @@
 
 .skeleton-line {
   height: 12px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
+  background-color: #f7f7f7;
+  border-radius: 6px;
   position: relative;
   overflow: hidden;
 }
 
-.skeleton-title { width: 85%; height: 18px; }
+.skeleton-title { width: 90%; height: 20px; margin-bottom: 5px; }
 .skeleton-brand { width: 50%; height: 12px; }
-.skeleton-code { width: 40%; height: 10px; opacity: 0.6; }
-.skeleton-price { width: 30%; height: 20px; margin-top: 5px; }
+.skeleton-code { width: 35%; height: 10px; opacity: 0.5; margin-left: auto; }
+.skeleton-price { width: 40%; height: 24px; margin-top: 10px; }
 
 .skeleton-shimmer {
   position: absolute;
@@ -44,13 +52,19 @@
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.8) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  animation: shimmer 1.5s infinite;
+  animation: shimmer 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
+}
+
+@media (max-width: 768px) {
+  .skeleton-image-wrapper {
+    height: 160px;
+  }
 }
