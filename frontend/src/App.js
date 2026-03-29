@@ -4,23 +4,32 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AdminPanel from './pages/AdminPanel';
 import PublicCatalog from './pages/PublicCatalog';
 import Login from './pages/Login';
+import SplashScreen from './components/public/SplashScreen';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
+    const initApp = async () => {
+      // Start both authentication check and a minimum delay for the splash screen
+      const authPromise = checkAuth();
+      const delayPromise = new Promise(resolve => setTimeout(resolve, 2000));
+      
+      await Promise.all([authPromise, delayPromise]);
+      setLoading(false);
+    };
+    
+    initApp();
   }, []);
 
   const checkAuth = async () => {
     const token = localStorage.getItem('admin_token');
     setIsAuthenticated(!!token);
-    setLoading(false);
   };
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <SplashScreen />;
   }
 
   return (

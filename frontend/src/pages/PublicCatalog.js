@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/PublicCatalog.css';
 import Hero from '../components/public/Hero';
+import FeaturedSections from '../components/public/FeaturedSections';
 import ProductFilters from '../components/public/ProductFilters';
 import ProductGrid from '../components/public/ProductGrid';
 import ProductModal from '../components/public/ProductModal';
@@ -155,8 +156,9 @@ function PublicCatalog() {
   return (
     <div className="public-catalog">
       <Hero />
+      <FeaturedSections />
 
-      <header className="catalog-header">
+      <header className="catalog-header" id="collection">
         <h1>OUR COLLECTION</h1>
         <p>Explore our premium footwear selection</p>
       </header>

@@ -1,6 +1,18 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .public-catalog {
   min-height: 100vh;
   background-color: #ffffff;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.public-catalog::-webkit-scrollbar {
+  display: none;
 }
 
 .catalog-header {
