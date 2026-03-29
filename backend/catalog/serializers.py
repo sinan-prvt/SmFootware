@@ -7,7 +7,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
         fields = ['id', 'image', 'alt_text', 'is_primary']
 
 
-class ProductListSerializer(serializers.ModelSerializer):
+class ProductListSerializer(models.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
     primary_image = serializers.SerializerMethodField()
 
@@ -15,7 +15,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'category_name', 'price', 'show_price', 'code', 'sizes', 'primary_image', 'images']
+        fields = ['id', 'name', 'brand_name', 'gender', 'category', 'category_name', 'price', 'show_price', 'article', 'colors', 'sizes', 'primary_image', 'images']
 
     def get_primary_image(self, obj):
         primary = obj.images.filter(is_primary=True).first()
@@ -30,7 +30,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'category_name', 'description', 'price', 'show_price', 'code', 'sizes', 'images', 'created_at']
+        fields = ['id', 'name', 'brand_name', 'gender', 'category', 'category_name', 'price', 'show_price', 'article', 'colors', 'sizes', 'images', 'created_at']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -38,7 +38,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'description', 'product_count']
+        fields = ['id', 'name', 'product_count']
 
     def get_product_count(self, obj):
         return obj.products.count()

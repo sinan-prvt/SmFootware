@@ -3,7 +3,7 @@ import '../../styles/CategoryManager.css';
 
 function CategoryManager() {
   const [categories, setCategories] = useState([]);
-  const [formData, setFormData] = useState({ name: '', description: '' });
+  const [formData, setFormData] = useState({ name: '' });
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
 
@@ -46,7 +46,7 @@ function CategoryManager() {
       });
 
       if (response.ok) {
-        setFormData({ name: '', description: '' });
+        setFormData({ name: '' });
         setEditingId(null);
         fetchCategories();
       } else {
@@ -58,7 +58,7 @@ function CategoryManager() {
   };
 
   const handleEdit = (category) => {
-    setFormData({ name: category.name, description: category.description });
+    setFormData({ name: category.name });
     setEditingId(category.id);
   };
 
@@ -93,11 +93,6 @@ function CategoryManager() {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
         />
-        <textarea
-          placeholder="Description"
-          value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-        />
         {error && <p className="error">{error}</p>}
         <button type="submit">
           {editingId ? 'Update Category' : 'Add Category'}
@@ -109,7 +104,6 @@ function CategoryManager() {
           <div key={cat.id} className="category-item">
             <div>
               <h3>{cat.name}</h3>
-              <p>{cat.description}</p>
               <small>{cat.product_count} products</small>
             </div>
             <div className="category-actions">

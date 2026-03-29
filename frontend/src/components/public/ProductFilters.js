@@ -3,33 +3,41 @@ import '../../styles/ProductFilters.css';
 
 function ProductFilters({ categories, filters, setFilters }) {
   return (
-    <div className="app-filters">
-      <div className="search-bar-container">
-        <input
-          type="text"
-          placeholder="Search items..."
-          value={filters.search}
-          onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-          className="app-search-input"
-        />
+    <div className="catalog-filters">
+      <div className="filter-controls-upper">
+        <div className="search-box">
+          <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search our collection..."
+            value={filters.search}
+            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+            className="search-input-premium"
+          />
+        </div>
       </div>
 
-      <div className="category-pills-container">
-        <button
-          className={`category-pill ${filters.category === '' ? 'active' : ''}`}
-          onClick={() => setFilters({ ...filters, category: '' })}
-        >
-          All
-        </button>
-        {categories.map((cat) => (
+      <div className="category-tags-scroll">
+        <div className="category-tags">
           <button
-            key={cat.id}
-            className={`category-pill ${filters.category === String(cat.id) ? 'active' : ''}`}
-            onClick={() => setFilters({ ...filters, category: String(cat.id) })}
+            className={`tag-pill ${filters.category === '' ? 'active' : ''}`}
+            onClick={() => setFilters({ ...filters, category: '' })}
           >
-            {cat.name}
+            ALL
           </button>
-        ))}
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className={`tag-pill ${filters.category === String(cat.id) ? 'active' : ''}`}
+              onClick={() => setFilters({ ...filters, category: String(cat.id) })}
+            >
+              {cat.name.toUpperCase()}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

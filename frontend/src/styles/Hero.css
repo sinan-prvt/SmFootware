@@ -300,9 +300,21 @@
 .sphere { transform: translateY(40px); }
 
 /* Loaded States */
-.loaded .nav-logo, .loaded .nav-menu, .loaded .nav-actions, .loaded .shoe-wrapper, .loaded .bottom-links, .loaded .bg-text, .loaded .bg-lines, .loaded .side-text, .loaded .sphere {
+.loaded .nav-logo, .loaded .nav-menu, .loaded .nav-actions, .loaded .shoe-wrapper, .loaded .bottom-links, .loaded .bg-text, .loaded .bg-lines, .loaded .sphere {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+.loaded .side-text {
+  opacity: 1;
+}
+
+.loaded .side-text.left-side {
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+.loaded .side-text.right-side {
+  transform: translateY(-50%) rotate(90deg);
 }
 
 .loaded .nav-logo { transition-delay: 0.2s; }

@@ -159,6 +159,7 @@ function PublicCatalog() {
       <FeaturedSections />
 
       <header className="catalog-header" id="collection">
+        <span className="superior-tag">SUPERIOR QUALITY</span>
         <h1>OUR COLLECTION</h1>
         <p>Explore our premium footwear selection</p>
       </header>

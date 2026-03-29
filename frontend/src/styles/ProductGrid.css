@@ -1,141 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding-bottom: 24px;
+  gap: 30px;
+  padding: 0 5vw 4rem 5vw;
 }
 
 .product-card {
-  background: white;
-  border-radius: 16px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #f0f0f0;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid #f2f2f2;
 }
 
-.product-card:active {
-  transform: scale(0.98);
+.product-image-outer {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .product-image {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.1));
+}
+
+.product-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 160px;
-  object-fit: cover;
-  background-color: #f8f9fa;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
 }
 
-.product-details {
-  padding: 12px;
-}
-
-.product-details h3 {
-  margin-bottom: 4px;
+.product-card-overlay span {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
   color: #111;
-  font-size: 0.9rem;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: #eee;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.1) rotate(-5deg) translateY(-5px);
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+.product-card:hover .product-card-overlay {
+  opacity: 1;
+}
+
+.product-card:hover .product-card-overlay span {
+  transform: translateY(0);
+}
+
+.product-info-premium {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.product-brand-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #999;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.product-title-premium {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
   font-weight: 700;
+  color: #111;
+  margin-bottom: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.product-details .category {
-  color: #888;
-  font-size: 0.75rem;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.product-bottom-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
 }
 
-.product-code {
-  font-size: 0.7rem !important;
-  color: #999 !important;
-  margin: 2px 0 6px 0 !important;
-}
-
-.product-details .price {
-  color: #000;
+.price-premium {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
   font-weight: 800;
-  font-size: 1.05rem;
+  color: #111;
+}
+
+.sku-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #bbb;
+}
+
+/* Skeleton Updates */
+.skeleton-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #f2f2f2;
+}
+
+.skeleton-img {
+  height: 220px;
+  background: #f5f5f5;
 }
 
 @media (max-width: 768px) {
   .product-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 15px;
+    padding: 0 15px 3rem 15px;
+  }
+  
+  .product-image-outer {
+    height: 160px;
+  }
+  
+  .product-info-premium {
+    padding: 1rem;
+  }
+  
+  .product-title-premium {
+    font-size: 0.95rem;
+  }
+  
+  .price-premium {
+    font-size: 1rem;
+  }
+  
+  .product-brand-eyebrow {
+    font-size: 0.55rem;
+  }
+  
+  .sku-tag {
+    display: none;
   }
 }
 
-/* Skeleton Loading Animation */
-.skeleton-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f0f0f0;
-  display: flex;
-  flex-direction: column;
-}
-
-.skeleton-img {
-  width: 100%;
-  height: 160px;
-  background-color: #e0e0e0;
-  animation: shimmer 1.5s infinite linear;
-}
-
-.skeleton-info {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.skeleton-text {
-  height: 14px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  animation: shimmer 1.5s infinite linear;
-}
-
-.skeleton-text.short {
-  width: 50%;
-}
-
-.skeleton-text.medium {
-  width: 80%;
-}
-
-@keyframes shimmer {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
-}
-
-/* Load More Button */
 .load-more-btn {
   grid-column: 1 / -1;
-  padding: 14px 24px;
-  margin: 10px auto;
-  min-width: 200px;
+  padding: 16px 32px;
+  margin: 20px auto;
   background: #111;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
+  border-radius: 50px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .load-more-btn:hover {
   background: #333;
-  transform: translateY(-2px);
-}
-
-.load-more-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  transform: none;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }

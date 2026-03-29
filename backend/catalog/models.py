@@ -3,7 +3,6 @@ from django.core.validators import MinValueValidator
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -15,12 +14,21 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    GENDER_CHOICES = [
+        ('MEN', 'Men'),
+        ('WOMEN', 'Women'),
+        ('KIDS', 'Kids'),
+        ('UNISEX', 'Unisex'),
+    ]
+
     name = models.CharField(max_length=200)
+    brand_name = models.CharField(max_length=100, blank=True)
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='UNISEX')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0)])
     show_price = models.BooleanField(default=True)
-    code = models.CharField(max_length=100, blank=True)
+    article = models.CharField(max_length=100, blank=True)
+    colors = models.CharField(max_length=200, blank=True, help_text="Comma separated colors e.g. Black, Red, White")
     sizes = models.CharField(max_length=200, blank=True, help_text="Comma separated sizes e.g. 7, 8, 9, 10")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
