@@ -101,18 +101,6 @@ function PublicCatalog() {
     fetchCategories();
   }, [fetchCategories]);
 
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setPage(1);
-    fetchProducts(1);
-  }, [filters, fetchProducts]);
-
-  // Append items when page > 1 changes
-  useEffect(() => {
-    if (page > 1) {
-      fetchProducts(page);
-    }
-  }, [page, fetchProducts]);
 
 
   const fetchProducts = useCallback(async (currentPage = 1) => {
@@ -152,6 +140,17 @@ function PublicCatalog() {
       setLoading(false);
     }
   }, [filters.category, filters.search]);
+
+  useEffect(() => {
+    setPage(1);
+    fetchProducts(1);
+  }, [filters, fetchProducts]);
+
+  useEffect(() => {
+    if (page > 1) {
+      fetchProducts(page);
+    }
+  }, [page, fetchProducts]);
 
   return (
     <div className="public-catalog">

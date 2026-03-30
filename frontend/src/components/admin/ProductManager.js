@@ -42,16 +42,6 @@ function ProductManager({ activeTab, setActiveTab }) {
     }
   }, []);
 
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        fetchProducts();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchTerm, activeTab, fetchProducts]);
 
   const fetchProducts = useCallback(async (url) => {
     setLoading(true);
@@ -91,6 +81,17 @@ function ProductManager({ activeTab, setActiveTab }) {
       setLoading(false);
     }
   }, [searchTerm, token]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        fetchProducts();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchTerm, activeTab, fetchProducts]);
 
   const renderSkeletonRows = () => (
     Array(6).fill(0).map((_, i) => (
@@ -138,7 +139,6 @@ function ProductManager({ activeTab, setActiveTab }) {
         },
         body: JSON.stringify({ in_stock: !product.in_stock }),
       });
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
       if (response.ok) {
         fetchProducts(`${baseUrl}/products/?page=${currentPage}&search=${searchTerm}`);
         if (selectedProduct && selectedProduct.id === product.id) {
