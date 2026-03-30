@@ -15,7 +15,8 @@ function Login({ setIsAuthenticated }) {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/token-auth/', {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const response = await fetch(`${baseUrl}/token-auth/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
