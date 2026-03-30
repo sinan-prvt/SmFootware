@@ -10,7 +10,13 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "config/wsgi.py"
+      "dest": "config/wsgi.py",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "X-CSRFToken, Content-Type, Authorization, X-Requested-With",
+        "Access-Control-Max-Age": "86400"
+      }
     }
   ]
 }

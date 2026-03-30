@@ -33,7 +33,7 @@ function ProductGrid({ products, loading, onSelectProduct, onLoadMore, hasMore }
                   src={
                     (product.images[0].url || product.images[0].image)?.startsWith('http')
                       ? (product.images[0].url || product.images[0].image)
-                      : `${process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:8000'}${product.images[0].url || product.images[0].image}`
+                      : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${product.images[0].url || product.images[0].image}`
                   }
                   alt={product.images[0].alt_text || product.name}
                   className="product-image"

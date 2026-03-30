@@ -86,7 +86,7 @@ function PublicCatalog() {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const baseUrl = (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '');
       const response = await fetch(`${baseUrl}/categories/`);
       const data = await response.json();
       const results = data.results || data;
@@ -107,7 +107,7 @@ function PublicCatalog() {
     if (currentPage === 1) setLoading(true);
 
     try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const baseUrl = (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '');
       let url = `${baseUrl}/products/`;
       const params = new URLSearchParams();
 

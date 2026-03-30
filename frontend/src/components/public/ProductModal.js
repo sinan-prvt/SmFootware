@@ -41,7 +41,7 @@ function ProductModal({ product, onClose }) {
         <div className="modal-gallery">
           {currentImage && (
             <img
-              src={(currentImage.url || currentImage.image)?.startsWith('http') ? (currentImage.url || currentImage.image) : `${process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:8000'}${currentImage.url || currentImage.image}`}
+              src={(currentImage.url || currentImage.image)?.startsWith('http') ? (currentImage.url || currentImage.image) : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${currentImage.url || currentImage.image}`}
               alt={currentImage.alt_text || product.name}
               className="gallery-image"
               onClick={() => setIsZoomMode(true)}
@@ -66,7 +66,7 @@ function ProductModal({ product, onClose }) {
               {images.map((img, idx) => (
                 <img
                   key={img.id || idx}
-                  src={(img.url || img.image)?.startsWith('http') ? (img.url || img.image) : `${process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:8000'}${img.url || img.image}`}
+                  src={(img.url || img.image)?.startsWith('http') ? (img.url || img.image) : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${img.url || img.image}`}
                   alt={img.alt_text || `${product.name} ${idx + 1}`}
                   className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`}
                   onClick={() => setCurrentImageIndex(idx)}
@@ -142,7 +142,7 @@ function ProductModal({ product, onClose }) {
             <button className="zoom-close">×</button>
             <div className="zoomed-image-container">
               <img
-                src={(currentImage.url || currentImage.image)?.startsWith('http') ? (currentImage.url || currentImage.image) : `${process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:8000'}${currentImage.url || currentImage.image}`}
+                src={(currentImage.url || currentImage.image)?.startsWith('http') ? (currentImage.url || currentImage.image) : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${currentImage.url || currentImage.image}`}
                 alt={currentImage.alt_text || product.name}
                 className="zoomed-image"
               />

@@ -14,7 +14,7 @@ function CategoryManager() {
     setLoading(true);
     const startTime = Date.now();
     try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const baseUrl = (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '');
       const response = await fetch(`${baseUrl}/categories/`, {
         headers: token ? { 'Authorization': `Token ${token}` } : {},
       });
