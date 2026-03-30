@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../../styles/ProductManager.css';
 import { toast } from 'react-hot-toast';
 
@@ -31,28 +31,39 @@ function ProductManager({ activeTab, setActiveTab }) {
 
   const token = localStorage.getItem('admin_token');
 
+  const fetchCategories = useCallback(async () => {
+    try {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const response = await fetch(`${baseUrl}/categories/`);
+      const data = await response.json();
+      setCategories(data.results || data);
+    } catch (err) {
+      setError('Error fetching categories');
+    }
+  }, []);
+
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
         fetchProducts();
     }, 500);
     return () => clearTimeout(timer);
-  }, [searchTerm, activeTab]);
+  }, [searchTerm, activeTab, fetchProducts]);
 
-  const fetchProducts = async (url) => {
+  const fetchProducts = useCallback(async (url) => {
     setLoading(true);
     const startTime = Date.now();
     try {
-      let finalUrl = url || `http://localhost:8000/api/products/?search=${searchTerm}`;
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      let finalUrl = url || `${baseUrl}/products/?search=${searchTerm}`;
       const response = await fetch(finalUrl, {
         headers: token ? { 'Authorization': `Token ${token}` } : {},
       });
       const data = await response.json();
       
-      // Calculate remaining time for the 1.2s skeleton display (Snappier feel)
       const elapsed = Date.now() - startTime;
       const delay = Math.max(0, 1200 - elapsed);
 
@@ -79,7 +90,7 @@ function ProductManager({ activeTab, setActiveTab }) {
       setError('Error fetching products');
       setLoading(false);
     }
-  };
+  }, [searchTerm, token]);
 
   const renderSkeletonRows = () => (
     Array(6).fill(0).map((_, i) => (
@@ -114,20 +125,12 @@ function ProductManager({ activeTab, setActiveTab }) {
     ))
   );
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/api/categories/');
-      const data = await response.json();
-      setCategories(data.results || data);
-    } catch (err) {
-      setError('Error fetching categories');
-    }
-  };
 
   const toggleStockStatus = async (product, e) => {
     if (e) e.stopPropagation();
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
     try {
-      const response = await fetch(`http://localhost:8000/api/products/${product.id}/`, {
+      const response = await fetch(`${baseUrl}/products/${product.id}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -135,8 +138,9 @@ function ProductManager({ activeTab, setActiveTab }) {
         },
         body: JSON.stringify({ in_stock: !product.in_stock }),
       });
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
       if (response.ok) {
-        fetchProducts(`http://localhost:8000/api/products/?page=${currentPage}&search=${searchTerm}`);
+        fetchProducts(`${baseUrl}/products/?page=${currentPage}&search=${searchTerm}`);
         if (selectedProduct && selectedProduct.id === product.id) {
             setSelectedProduct({ ...selectedProduct, in_stock: !product.in_stock });
         }
@@ -160,9 +164,10 @@ function ProductManager({ activeTab, setActiveTab }) {
     e.preventDefault();
     setError('');
 
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
     const url = editingId
-      ? `http://localhost:8000/api/products/${editingId}/`
-      : 'http://localhost:8000/api/products/';
+      ? `${baseUrl}/products/${editingId}/`
+      : `${baseUrl}/products/`;
 
     const method = editingId ? 'PUT' : 'POST';
 
@@ -186,7 +191,8 @@ function ProductManager({ activeTab, setActiveTab }) {
              imgForm.append('product_id', productId);
              imgForm.append('image', selectedFiles[i]);
              imgForm.append('is_primary', i === 0 ? "true" : "false");
-             await fetch('http://localhost:8000/api/products/upload_image/', {
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+             await fetch(`${baseUrl}/products/upload_image/`, {
                method: 'POST',
                headers: { 'Authorization': `Token ${token}` },
                body: imgForm
@@ -234,8 +240,9 @@ function ProductManager({ activeTab, setActiveTab }) {
   const handleDelete = async (id, e) => {
     if (e) e.stopPropagation();
     if (!window.confirm('Delete product? This cannot be undone.')) return;
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
     try {
-      const response = await fetch(`http://localhost:8000/api/products/${id}/`, {
+      const response = await fetch(`${baseUrl}/products/${id}/`, {
         method: 'DELETE',
         headers: { 'Authorization': `Token ${token}` },
       });
@@ -251,7 +258,6 @@ function ProductManager({ activeTab, setActiveTab }) {
     }
   };
 
-  const uniqueBrands = new Set(products.map(p => p.brand_name)).size;
 
   return (
     <div className="product-manager-container">
@@ -264,7 +270,7 @@ function ProductManager({ activeTab, setActiveTab }) {
               <div className="modal-media-side">
                 <div className="primary-display">
                     {selectedProduct.primary_image ? (
-                        <img src={selectedProduct.primary_image.image.startsWith('http') ? selectedProduct.primary_image.image : `http://localhost:8000${selectedProduct.primary_image.image}`} alt={selectedProduct.name} />
+                        <img src={selectedProduct.primary_image.image.startsWith('http') ? selectedProduct.primary_image.image : `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}${selectedProduct.primary_image.image}`} alt={selectedProduct.name} />
                     ) : (
                         <div className="no-img-big">NO IMAGE</div>
                     )}
@@ -272,7 +278,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                 <div className="gallery-strip">
                     {selectedProduct.images && selectedProduct.images.map((img, i) => (
                         <div key={i} className="gallery-thumb">
-                            <img src={img.image.startsWith('http') ? img.image : `http://localhost:8000${img.image}`} alt="" />
+                            <img src={img.image.startsWith('http') ? img.image : `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}${img.image}`} alt="" />
                         </div>
                     ))}
                 </div>
@@ -560,7 +566,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                     <td className="col-article">
                       <div className="article-thumb-mini">
                         {prod.primary_image ? (
-                          <img src={prod.primary_image.image.startsWith('http') ? prod.primary_image.image : `http://localhost:8000${prod.primary_image.image}`} alt="" />
+                          <img src={prod.primary_image.image.startsWith('http') ? prod.primary_image.image : `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}${prod.primary_image.image}`} alt="" />
                         ) : (
                           <div className="no-img-mini">#</div>
                         )}
@@ -626,7 +632,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                   <button 
                     key={i} 
                     className={`nav-num ${currentPage === i + 1 ? 'active' : ''}`}
-                    onClick={() => fetchProducts(`http://localhost:8000/api/products/?page=${i + 1}&search=${searchTerm}`)}
+                    onClick={() => fetchProducts(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api'}/products/?page=${i + 1}&search=${searchTerm}`)}
                   >
                     {i + 1}
                   </button>

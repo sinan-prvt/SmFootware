@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/PublicCatalog.css';
 import Hero from '../components/public/Hero';
 import FeaturedSections from '../components/public/FeaturedSections';
@@ -84,26 +84,10 @@ function PublicCatalog() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setPage(1);
-    fetchProducts(1);
-  }, [filters]);
-
-  // Append items when page > 1 changes
-  useEffect(() => {
-    if (page > 1) {
-      fetchProducts(page);
-    }
-  }, [page]);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/categories/');
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const response = await fetch(`${baseUrl}/categories/`);
       const data = await response.json();
       const results = data.results || data;
       setCategories(results.length > 0 ? results : DUMMY_CATEGORIES);
@@ -111,13 +95,32 @@ function PublicCatalog() {
       console.error('Error fetching categories:', err);
       setCategories(DUMMY_CATEGORIES);
     }
-  };
+  }, []);
 
-  const fetchProducts = async (currentPage = 1) => {
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setPage(1);
+    fetchProducts(1);
+  }, [filters, fetchProducts]);
+
+  // Append items when page > 1 changes
+  useEffect(() => {
+    if (page > 1) {
+      fetchProducts(page);
+    }
+  }, [page, fetchProducts]);
+
+
+  const fetchProducts = useCallback(async (currentPage = 1) => {
     if (currentPage === 1) setLoading(true);
 
     try {
-      let url = 'http://localhost:8000/api/products/';
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      let url = `${baseUrl}/products/`;
       const params = new URLSearchParams();
 
       if (filters.category) params.append('category', filters.category);
@@ -148,7 +151,7 @@ function PublicCatalog() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters.category, filters.search]);
 
   return (
     <div className="public-catalog">
@@ -193,9 +196,9 @@ function PublicCatalog() {
             </div>
             <div className="footer-links">
               <a href="/admin">Vendor Portal</a>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Contact Us</a>
+              <a href="#collection">Privacy Policy</a>
+              <a href="#collection">Terms of Service</a>
+              <a href="#collection">Contact Us</a>
             </div>
           </div>
           <div className="footer-bottom">

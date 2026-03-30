@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../../styles/CategoryManager.css';
 
 function CategoryManager() {
@@ -10,15 +10,12 @@ function CategoryManager() {
 
   const token = localStorage.getItem('admin_token');
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     setLoading(true);
     const startTime = Date.now();
     try {
-      const response = await fetch('http://localhost:8000/api/categories/', {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+      const response = await fetch(`${baseUrl}/categories/`, {
         headers: token ? { 'Authorization': `Token ${token}` } : {},
       });
       const data = await response.json();
@@ -34,7 +31,11 @@ function CategoryManager() {
       setError('Error fetching categories');
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   const renderSkeletonCategories = () => (
     Array(4).fill(0).map((_, i) => (
@@ -55,9 +56,10 @@ function CategoryManager() {
     e.preventDefault();
     setError('');
 
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
     const url = editingId
-      ? `http://localhost:8000/api/categories/${editingId}/`
-      : 'http://localhost:8000/api/categories/';
+      ? `${baseUrl}/categories/${editingId}/`
+      : `${baseUrl}/categories/`;
 
     const method = editingId ? 'PUT' : 'POST';
 
@@ -91,8 +93,9 @@ function CategoryManager() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure?')) return;
 
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
     try {
-      const response = await fetch(`http://localhost:8000/api/categories/${id}/`, {
+      const response = await fetch(`${baseUrl}/categories/${id}/`, {
         method: 'DELETE',
         headers: { 'Authorization': `Token ${token}` },
       });
