@@ -9,9 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-DEBUG = True # FINAL TROUBLESHOOTING
+DEBUG = os.environ.get('DEBUG', 'True').strip().lower() in ('1', 'true', 'yes', 'on')
 
-ALLOWED_HOSTS = ['*']
+allowed_hosts_env = os.environ.get('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_env.split(',') if host.strip()] if allowed_hosts_env else ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -59,56 +60,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Environment Hunter - Looking for any possible Postgres URL
+# Prefer explicit DB env vars used by common hosts.
+# Intentionally ignore SUPABASE_URL (dashboard URL) to prevent accidental misconfiguration.
 DATABASE_URL = (
-    os.environ.get('DATABASE_URL') or 
-    os.environ.get('SUPABASE_URL') or 
-    os.environ.get('POSTGRES_URL') or
-    os.environ.get('SUPABASE_DB_URL')
+    os.environ.get('DATABASE_URL')
+    or os.environ.get('POSTGRES_URL')
+    or os.environ.get('SUPABASE_DB_URL')
 )
 
-import dj_database_url
-from urllib.parse import unquote
-
-# Only use SQLite if we are absolutely sure no Postgres is defined
-if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL):
-    # Detect if the separator @ is encoded as %40 (Vercel sometimes does this)
-    if '@' not in DATABASE_URL and '%40' in DATABASE_URL:
-        parts = DATABASE_URL.rsplit('%40', 1)
-        if len(parts) == 2:
-            DATABASE_URL = f"{parts[0]}@{parts[1]}"
-    
-    try:
-        # Robust parsing for passwords containing @
-        if '@' in DATABASE_URL:
-            creds_part, host_part = DATABASE_URL.rsplit('@', 1)
-            creds_only = creds_part.split('://', 1)[1] if '://' in creds_part else creds_part
-            user, password = creds_only.split(':', 1) if ':' in creds_only else (creds_only, '')
-            host_and_port, db_full = host_part.split('/', 1) if '/' in host_part else (host_part, 'postgres')
-            dbname = db_full.split('?', 1)[0]
-            host, port = host_and_port.split(':', 1) if ':' in host_and_port else (host_and_port, '6543')
-            
-            DATABASES = {
-                'default': {
-                    'ENGINE': 'django.db.backends.postgresql',
-                    'NAME': unquote(dbname),
-                    'USER': unquote(user),
-                    'PASSWORD': unquote(password),
-                    'HOST': host.strip(),
-                    'PORT': int(port) if port.isdigit() else 6543,
-                    'OPTIONS': {
-                        'sslmode': 'require',
-                        'connect_timeout': 10,
-                    },
-                    'CONN_MAX_AGE': 0,
-                }
-            }
-        else:
-            DATABASES = {'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=0, ssl_require=True)}
-    except Exception:
-        DATABASES = {'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=0, ssl_require=True)}
+if DATABASE_URL and DATABASE_URL.strip().lower().startswith(('postgres://', 'postgresql://')):
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=60, ssl_require=not DEBUG)
+    }
 else:
-    DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': BASE_DIR / 'db.sqlite3' } }
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

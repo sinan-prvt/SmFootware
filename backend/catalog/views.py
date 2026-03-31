@@ -3,6 +3,7 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from django.db import OperationalError, ProgrammingError
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Category, Product, ProductImage
 from .serializers import CategorySerializer, ProductListSerializer, ProductDetailSerializer, ProductImageSerializer
@@ -19,7 +20,13 @@ def login(request):
     if not username or not password:
         return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
-    user = authenticate(username=username, password=password)
+    try:
+        user = authenticate(username=username, password=password)
+    except (OperationalError, ProgrammingError):
+        return Response(
+            {'error': 'Authentication service is not ready. Run backend migrations in production.'},
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
 
     if user is None:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -27,7 +34,14 @@ def login(request):
     if not user.is_staff:
         return Response({'error': 'Only admin users can login'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    token, created = Token.objects.get_or_create(user=user)
+    try:
+        token, created = Token.objects.get_or_create(user=user)
+    except (OperationalError, ProgrammingError):
+        return Response(
+            {'error': 'Token storage is not ready. Run backend migrations in production.'},
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+
     return Response({'token': token.key, 'user': user.username}, status=status.HTTP_200_OK)
 
 

@@ -42,6 +42,24 @@ This guide will walk you through deploying your **Django Backend** and **React F
 5.  Click **Deploy**.
 6.  Once live, copy the URL (e.g., `https://sm-footware-api.vercel.app`).
 
+### ✅ C.1.1: Run Production Migrations (Required)
+Vercel does not automatically run Django migrations for your database.
+
+Run these commands locally from the `backend` folder using the same production `DATABASE_URL`:
+
+```bash
+python manage.py migrate
+python manage.py set_admin
+```
+
+If `set_admin` is not desired, create your own staff user instead:
+
+```bash
+python manage.py createsuperuser
+```
+
+Without this step, `/api/token-auth/` can return server errors in production.
+
 ### 🎨 C.2: Deploy Frontend (Vercel)
 1.  Go to [Vercel Dashboard](https://vercel.com/new).
 2.  Import the **same** repo again.
