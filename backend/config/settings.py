@@ -90,11 +90,13 @@ if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL)
             
             import socket
             try:
-                # Force IPv4 by resolving the hostname manually
-                # This bypasses IPv6 connectivity issues on Vercel's network
-                host_ip = socket.gethostbyname(host)
+                # Aggressively force IPv4 by resolving only AF_INET (IPv4) addresses
+                # This bypasses the problematic (2406:da14:...) IPv6 connection path
+                clean_host = host.strip()
+                addr_info = socket.getaddrinfo(clean_host, None, family=socket.AF_INET)
+                host_ip = addr_info[0][4][0] if addr_info else clean_host
             except Exception:
-                host_ip = host
+                host_ip = host.strip()
 
             DATABASES = {
                 'default': {
