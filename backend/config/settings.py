@@ -95,9 +95,12 @@ if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL)
                     'USER': unquote(user),
                     'PASSWORD': unquote(password),
                     'HOST': host,
-                    'PORT': int(port) if port.isdigit() else 5432,
-                    'OPTIONS': {'sslmode': 'require'},
-                    'CONN_MAX_AGE': 600,
+                    'PORT': int(port) if port.isdigit() else 6543,
+                    'OPTIONS': {
+                        'sslmode': 'require',
+                        'connect_timeout': 10,
+                    },
+                    'CONN_MAX_AGE': 0, # Critical for Vercel to prevent connection leaks
                 }
             }
         else:
