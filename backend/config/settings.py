@@ -7,11 +7,12 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
+SECRET_KEY = os.envi
+ron.get('SECRET_KEY', 'django-insecure-dev-key')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*'] # Narrow this down after you get your Render URL
+ALLOWED_HOSTS = ['*'] # Allowed for development; restrict in production if possible
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,7 +66,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=DATABASE_URL if DATABASE_URL else f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        ssl_require=not DEBUG
+        ssl_require=False # Temporarily False for 500 debugging
     )
 }
 
