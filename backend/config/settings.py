@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-DEBUG = False
+DEBUG = True # FINAL TROUBLESHOOTING
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,7 +72,14 @@ from urllib.parse import unquote
 
 # Only use SQLite if we are absolutely sure no Postgres is defined
 if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL):
+    # Detect if the separator @ is encoded as %40 (Vercel sometimes does this)
+    if '@' not in DATABASE_URL and '%40' in DATABASE_URL:
+        parts = DATABASE_URL.rsplit('%40', 1)
+        if len(parts) == 2:
+            DATABASE_URL = f"{parts[0]}@{parts[1]}"
+    
     try:
+        # Robust parsing for passwords containing @
         if '@' in DATABASE_URL:
             creds_part, host_part = DATABASE_URL.rsplit('@', 1)
             creds_only = creds_part.split('://', 1)[1] if '://' in creds_part else creds_part
