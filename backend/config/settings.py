@@ -59,25 +59,42 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-from urllib.parse import urlparse, unquote
+from urllib.parse import unquote
 
 DATABASE_URL = os.environ.get('DATABASE_URL') or os.environ.get('SUPABASE_URL')
 
-if DATABASE_URL and DATABASE_URL.startswith('postgresql'):
-    # Robust parsing for passwords containing @
+if DATABASE_URL and '@' in DATABASE_URL:
     try:
-        p = urlparse(DATABASE_URL)
+        # Robust parsing for passwords containing @ by splitting from the right
+        # Example: postgresql://user:p@ss@host:port/dbname
+        creds_part, host_part = DATABASE_URL.rsplit('@', 1)
+        
+        # Isolate credentials
+        creds_only = creds_part.split('://', 1)[1] if '://' in creds_part else creds_part
+        user, password = creds_only.split(':', 1) if ':' in creds_only else (creds_only, '')
+        
+        # Isolate host, port, and db
+        host_and_port, db_full = host_part.split('/', 1) if '/' in host_part else (host_part, 'postgres')
+        # Handle cases like 'dbname?sslmode=require'
+        dbname = db_full.split('?', 1)[0]
+        host, port = host_and_port.split(':', 1) if ':' in host_and_port else (host_and_port, '5432')
+        
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql',
-                'NAME': p.path.lstrip('/'),
-                'USER': unquote(p.username) if p.username else '',
-                'PASSWORD': unquote(p.password) if p.password else '',
-                'HOST': p.hostname,
-                'PORT': p.port or 5432,
+                'NAME': unquote(dbname),
+                'USER': unquote(user),
+                'PASSWORD': unquote(password),
+                'HOST': host,
+                'PORT': int(port) if port.isdigit() else 5432,
+                'OPTIONS': {
+                    'sslmode': 'require',
+                },
+                'CONN_MAX_AGE': 600,
             }
         }
     except Exception:
+        # Final fallback to standard config
         DATABASES = {
             'default': dj_database_url.config(
                 default=DATABASE_URL,
