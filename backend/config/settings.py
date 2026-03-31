@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-DEBUG = True # Temporarily True for debugging Vercel 500
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -65,7 +65,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=DATABASE_URL if DATABASE_URL else f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        ssl_require=False # Temporarily False for 500 debugging
+        ssl_require=False
     )
 }
 
@@ -122,4 +122,4 @@ CSRF_TRUSTED_ORIGINS = [
     'https://sm-footware-store.vercel.app',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True # Set to False and use CORS_ALLOWED_ORIGINS for production security
+CORS_ALLOW_ALL_ORIGINS = True
