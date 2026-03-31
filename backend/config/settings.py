@@ -88,19 +88,27 @@ if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL)
             dbname = db_full.split('?', 1)[0]
             host, port = host_and_port.split(':', 1) if ':' in host_and_port else (host_and_port, '5432')
             
+            import socket
+            try:
+                # Force IPv4 by resolving the hostname manually
+                # This bypasses IPv6 connectivity issues on Vercel's network
+                host_ip = socket.gethostbyname(host)
+            except Exception:
+                host_ip = host
+
             DATABASES = {
                 'default': {
                     'ENGINE': 'django.db.backends.postgresql',
                     'NAME': unquote(dbname),
                     'USER': unquote(user),
                     'PASSWORD': unquote(password),
-                    'HOST': host,
+                    'HOST': host_ip,
                     'PORT': int(port) if port.isdigit() else 6543,
                     'OPTIONS': {
                         'sslmode': 'require',
                         'connect_timeout': 10,
                     },
-                    'CONN_MAX_AGE': 0, # Critical for Vercel to prevent connection leaks
+                    'CONN_MAX_AGE': 0,
                 }
             }
         else:
