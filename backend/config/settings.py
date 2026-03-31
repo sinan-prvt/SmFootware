@@ -9,9 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = True # Temporarily True for debugging Vercel 500
 
-ALLOWED_HOSTS = ['*'] # Allowed for development; restrict in production if possible
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
