@@ -59,56 +59,55 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# Environment Hunter - Looking for any possible Postgres URL
+DATABASE_URL = (
+    os.environ.get('DATABASE_URL') or 
+    os.environ.get('SUPABASE_URL') or 
+    os.environ.get('POSTGRES_URL') or
+    os.environ.get('SUPABASE_DB_URL')
+)
+
+import dj_database_url
 from urllib.parse import unquote
 
-DATABASE_URL = os.environ.get('DATABASE_URL') or os.environ.get('SUPABASE_URL')
-
-if DATABASE_URL and '@' in DATABASE_URL:
+# Only use SQLite if we are absolutely sure no Postgres is defined
+if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL):
     try:
-        # Robust parsing for passwords containing @ by splitting from the right
-        # Example: postgresql://user:p@ss@host:port/dbname
-        creds_part, host_part = DATABASE_URL.rsplit('@', 1)
-        
-        # Isolate credentials
-        creds_only = creds_part.split('://', 1)[1] if '://' in creds_part else creds_part
-        user, password = creds_only.split(':', 1) if ':' in creds_only else (creds_only, '')
-        
-        # Isolate host, port, and db
-        host_and_port, db_full = host_part.split('/', 1) if '/' in host_part else (host_part, 'postgres')
-        # Handle cases like 'dbname?sslmode=require'
-        dbname = db_full.split('?', 1)[0]
-        host, port = host_and_port.split(':', 1) if ':' in host_and_port else (host_and_port, '5432')
-        
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': unquote(dbname),
-                'USER': unquote(user),
-                'PASSWORD': unquote(password),
-                'HOST': host,
-                'PORT': int(port) if port.isdigit() else 5432,
-                'OPTIONS': {
-                    'sslmode': 'require',
-                },
-                'CONN_MAX_AGE': 600,
+        # Robust parsing for passwords containing @
+        if '@' in DATABASE_URL:
+            creds_part, host_part = DATABASE_URL.rsplit('@', 1)
+            creds_only = creds_part.split('://', 1)[1] if '://' in creds_part else creds_part
+            user, password = creds_only.split(':', 1) if ':' in creds_only else (creds_only, '')
+            host_and_port, db_full = host_part.split('/', 1) if '/' in host_part else (host_part, 'postgres')
+            dbname = db_full.split('?', 1)[0]
+            host, port = host_and_port.split(':', 1) if ':' in host_and_port else (host_and_port, '5432')
+            
+            DATABASES = {
+                'default': {
+                    'ENGINE': 'django.db.backends.postgresql',
+                    'NAME': unquote(dbname),
+                    'USER': unquote(user),
+                    'PASSWORD': unquote(password),
+                    'HOST': host,
+                    'PORT': int(port) if port.isdigit() else 5432,
+                    'OPTIONS': {'sslmode': 'require'},
+                    'CONN_MAX_AGE': 600,
+                }
             }
-        }
-    except Exception:
-        # Final fallback to standard config
-        DATABASES = {
-            'default': dj_database_url.config(
-                default=DATABASE_URL,
-                conn_max_age=600,
-                ssl_require=False
-            )
-        }
+        else:
+            # Fallback for URLs without @ (rare but possible)
+            DATABASES = {'default': dj_database_url.config(default=DATABASE_URL, ssl_require=True)}
+            
+    except Exception as e:
+        # If manual parsing fails, use dj_database_url as final resort
+        DATABASES = {'default': dj_database_url.config(default=DATABASE_URL, ssl_require=True)}
 else:
+    # Use SQLite only as a local developer fallback
     DATABASES = {
-        'default': dj_database_url.config(
-            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-            conn_max_age=600,
-            ssl_require=False
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
 
 AUTH_PASSWORD_VALIDATORS = [
