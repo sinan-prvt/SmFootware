@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-DEBUG = False
+DEBUG = True # Final sync troubleshooting
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,6 +72,12 @@ from urllib.parse import unquote
 
 # Only use SQLite if we are absolutely sure no Postgres is defined
 if DATABASE_URL and ('postgresql' in DATABASE_URL or 'postgres' in DATABASE_URL):
+    # Detect if the separator @ is encoded as %40 (Vercel sometimes does this)
+    if '@' not in DATABASE_URL and '%40' in DATABASE_URL:
+        parts = DATABASE_URL.rsplit('%40', 1)
+        if len(parts) == 2:
+            DATABASE_URL = f"{parts[0]}@{parts[1]}"
+    
     try:
         # Robust parsing for passwords containing @
         if '@' in DATABASE_URL:
@@ -155,12 +161,17 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://sm-footware-store.vercel.app',
+    'https://sm-footware.vercel.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://sm-footware-store.vercel.app',
+    'https://sm-footware.vercel.app',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
