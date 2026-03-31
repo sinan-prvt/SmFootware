@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -59,15 +59,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+from urllib.parse import urlparse, unquote
+
 DATABASE_URL = os.environ.get('DATABASE_URL') or os.environ.get('SUPABASE_URL')
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=DATABASE_URL if DATABASE_URL else f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        ssl_require=False
-    )
-}
+if DATABASE_URL and DATABASE_URL.startswith('postgresql'):
+    # Robust parsing for passwords containing @
+    try:
+        p = urlparse(DATABASE_URL)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': p.path.lstrip('/'),
+                'USER': unquote(p.username) if p.username else '',
+                'PASSWORD': unquote(p.password) if p.password else '',
+                'HOST': p.hostname,
+                'PORT': p.port or 5432,
+            }
+        }
+    except Exception:
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=DATABASE_URL,
+                conn_max_age=600,
+                ssl_require=False
+            )
+        }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+            conn_max_age=600,
+            ssl_require=False
+        )
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
