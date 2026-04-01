@@ -38,24 +38,24 @@ function Hero() {
           <div className="hamburger-line"></div>
         </div>
         
-        {/* Dropdown Menu */}
-        <div className={`dropdown-menu ${isMenuOpen ? 'active' : ''}`}>
-          <div className="dropdown-content">
-            <a href="/" onClick={() => setIsMenuOpen(false)}>HOME</a>
-            <a href="#collection" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); scrollToCollection(); }}>SHOP</a>
-            <a href="/admin" className="dropdown-login" onClick={() => setIsMenuOpen(false)}>LOGIN</a>
-            <div className="dropdown-footer">
-              <p>SM FOOTWARE</p>
-            </div>
-          </div>
-        </div>
-
         <div className="nav-actions" style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
           <div className="nav-cart" style={{fontWeight: '700', fontSize: '14px', letterSpacing: '1px'}}>
             SM FOOTWARE
           </div>
         </div>
       </nav>
+
+      {/* Dropdown Menu - Moved outside nav to prevent flex interference */}
+      <div className={`dropdown-menu ${isMenuOpen ? 'active' : ''}`}>
+        <div className="dropdown-content">
+          <a href="/" onClick={() => setIsMenuOpen(false)}>HOME</a>
+          <a href="#collection" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); scrollToCollection(); }}>SHOP</a>
+          <a href="/admin" className="dropdown-login" onClick={() => setIsMenuOpen(false)}>LOGIN</a>
+          <div className="dropdown-footer">
+            <p>SM FOOTWARE</p>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content Area */}
       <div className="hero-content">

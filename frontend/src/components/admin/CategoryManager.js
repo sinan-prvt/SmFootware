@@ -78,7 +78,9 @@ function CategoryManager() {
         setEditingId(null);
         fetchCategories();
       } else {
-        setError('Error saving category');
+        const errorData = await response.json();
+        const errorMessage = errorData.name ? `Name: ${errorData.name[0]}` : (errorData.error || errorData.details || 'Error saving category');
+        setError(errorMessage);
       }
     } catch (err) {
       setError('Error saving category');

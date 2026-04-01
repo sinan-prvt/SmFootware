@@ -28,6 +28,7 @@ function ProductManager({ activeTab, setActiveTab }) {
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const token = localStorage.getItem('admin_token');
 
@@ -163,6 +164,7 @@ function ProductManager({ activeTab, setActiveTab }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSubmitting(true);
 
     const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
     const url = editingId
@@ -213,6 +215,8 @@ function ProductManager({ activeTab, setActiveTab }) {
       }
     } catch (err) {
       toast.error('Network error saving product');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -505,8 +509,8 @@ function ProductManager({ activeTab, setActiveTab }) {
               </div>
             </div>
             {error && <p className="error-banner">{error}</p>}
-            <button type="submit" className="submit-btn-premium large">
-              {editingId ? 'SAVE CHANGES' : 'ADD PRODUCT'}
+            <button type="submit" className="submit-btn-premium large" disabled={submitting}>
+              {submitting ? 'SAVING...' : (editingId ? 'SAVE CHANGES' : 'ADD PRODUCT')}
             </button>
           </form>
         </div>

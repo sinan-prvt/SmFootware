@@ -16,6 +16,7 @@
   color: #000;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 /* TOP NAV */
@@ -71,6 +72,7 @@
   align-items: center;
   justify-content: center;
   transition: right 0.5s cubic-bezier(0.77,0,0.175,1);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
 .dropdown-menu.active {
@@ -418,4 +420,25 @@
   .pos-4 { left: 25%; bottom: 35%; }
   .pos-5 { left: 5%; top: 48%; }
   .pos-6 { right: 25%; top: 15%; }
+
+  /* Final scale for background text to avoid overflow */
+  .bg-text {
+    font-size: 20vw;
+    letter-spacing: -2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-container {
+    height: 70vh;
+  }
+
+  .bg-text {
+    font-size: 18vw;
+    top: 40%;
+  }
+
+  .shoe-image {
+    width: 100vw;
+  }
 }
