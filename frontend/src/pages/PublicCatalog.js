@@ -7,73 +7,7 @@ import ProductGrid from '../components/public/ProductGrid';
 import ProductModal from '../components/public/ProductModal';
 import ScrollReveal from '../components/public/ScrollReveal';
 
-const DUMMY_CATEGORIES = [
-  { id: 1, name: "Nike" },
-  { id: 2, name: "Adidas" },
-  { id: 3, name: "Puma" },
-  { id: 4, name: "New Balance" },
-  { id: 5, name: "Vans" }
-];
-
-const DUMMY_PRODUCTS = [
-  {
-    id: 1,
-    name: "Nike Air Max 270",
-    brand_name: "Nike",
-    category_name: "Nike",
-    price: 12499.00,
-    show_price: true,
-    article: "NK-AM270-BLK",
-    sizes: ["7", "7.5", "8", "8.5", "9", "10", "11"],
-    images: [
-      { id: 101, url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop", alt_text: "Nike Air Max 270 Side" },
-      { id: 102, url: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=600&fit=crop", alt_text: "Nike Air Max Close up" }
-    ],
-    is_available: true,
-  },
-  {
-    id: 2,
-    name: "Adidas UltraBoost",
-    brand_name: "Adidas",
-    category_name: "Adidas",
-    price: 15999.00,
-    show_price: true,
-    article: "AD-UB21-WHT",
-    sizes: ["8", "9", "10", "11", "12"],
-    images: [
-      { id: 201, url: "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=600&h=600&fit=crop", alt_text: "Adidas UltraBoost Side" }
-    ],
-    is_available: true,
-  },
-  {
-    id: 3,
-    name: "Puma RS-X",
-    brand_name: "Puma",
-    category_name: "Puma",
-    price: 8999.00,
-    show_price: true,
-    article: "PU-RSX-MULT",
-    sizes: ["6", "7", "8", "9", "10"],
-    images: [
-      { id: 301, url: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&h=600&fit=crop", alt_text: "Puma RS-X Side" }
-    ],
-    is_available: true,
-  },
-  {
-    id: 4,
-    name: "New Balance 574 Core",
-    brand_name: "New Balance",
-    category_name: "New Balance",
-    price: 7499.00,
-    show_price: true,
-    article: "NB-574-GRY",
-    sizes: ["7", "8", "8.5", "9", "10", "11.5"],
-    images: [
-      { id: 401, url: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=600&h=600&fit=crop", alt_text: "New Balance 574 Side" }
-    ],
-    is_available: true,
-  }
-];
+// Removed dummy data to ensure only database content is displayed
 
 function PublicCatalog() {
   const [products, setProducts] = useState([]);
@@ -90,10 +24,10 @@ function PublicCatalog() {
       const response = await fetch(`${baseUrl}/categories/`);
       const data = await response.json();
       const results = data.results || data;
-      setCategories(results.length > 0 ? results : DUMMY_CATEGORIES);
+      setCategories(results);
     } catch (err) {
       console.error('Error fetching categories:', err);
-      setCategories(DUMMY_CATEGORIES);
+      setCategories([]);
     }
   }, []);
 
@@ -124,7 +58,7 @@ function PublicCatalog() {
       const isPaginated = data.next !== undefined;
       
       if (currentPage === 1) {
-        setProducts(results.length > 0 ? results : DUMMY_PRODUCTS);
+        setProducts(results);
       } else {
         setProducts(prev => [...prev, ...results]);
       }
@@ -133,7 +67,7 @@ function PublicCatalog() {
     } catch (err) {
       console.error('Error fetching products:', err);
       if (currentPage === 1) {
-        setProducts(DUMMY_PRODUCTS);
+        setProducts([]);
         setHasMore(false);
       }
     } finally {
