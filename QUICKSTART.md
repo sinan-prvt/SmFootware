@@ -7,8 +7,8 @@
 
 ## 🔑 Admin Credentials
 - **URL**: http://localhost:8000/admin/
-- **Username**: `admin`
-- **Password**: `admin123`
+- **Username**: `smadmin`
+- **Password**: `9495381001`
 
 ## 📱 Application URLs
 
@@ -47,14 +47,14 @@ The following are already completed:
 
 ### Option 1: Via Admin Panel (Recommended)
 1. Go to http://localhost:3000/admin/login
-2. Login with admin / admin123
+2. Login with smadmin / 9495381001
 3. Create categories first (Men, Women, Kids, etc.)
 4. Add products with images
 5. Set pricing (optional)
 
 ### Option 2: Via Django Admin
 1. Go to http://localhost:8000/admin/
-2. Login with admin / admin123
+2. Login with smadmin / 9495381001
 3. Add Categories
 4. Add Products
 5. Upload Product Images
@@ -70,7 +70,7 @@ const phoneNumber = '8801234567890'; // Change this
 ### Change Admin Password
 ```bash
 cd backend
-python manage.py changepassword admin
+python manage.py changepassword smadmin
 ```
 
 ### Database
