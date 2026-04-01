@@ -235,7 +235,38 @@
 @media (max-width: 768px) {
   .contact-hero-premium { padding: 6rem 5vw 3rem 5vw; }
   .contact-hero-premium h1 { font-size: 2.2rem; }
-  .number-value { font-size: 1.1rem; }
-  .info-value { font-size: 1rem; }
+  .contact-section-card { padding: 1.5rem; }
+  
+  .number-item { 
+    padding: 15px; 
+    gap: 10px;
+  }
+  
+  .number-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .number-value { 
+    font-size: 1rem; 
+  }
+  
+  .chat-btn-small {
+    padding: 6px 12px;
+    font-size: 0.65rem;
+  }
+
+  .info-value { font-size: 0.95rem; }
   .map-frame-wrapper { border-radius: 20px; }
+  
+  .channel-btn-premium {
+    padding: 14px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .number-value { font-size: 0.85rem; }
+  .contact-hero-premium h1 { font-size: 1.8rem; }
 }

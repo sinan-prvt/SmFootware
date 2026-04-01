@@ -278,13 +278,19 @@
     gap: 30px;
     padding: 0 2vw;
   }
-  
+
   .featured-card {
     width: 30%;
   }
 
   .card-shoe-img {
     width: 115%; /* Slightly smaller for mid-screens */
+    top: -110px; /* Pull up more for laptops */
+  }
+
+  .card-top {
+    height: 120px;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -309,15 +315,14 @@
   }
 
   .card-top {
-    height: 100px;
-    margin-bottom: 0.8rem;
-    margin-bottom: 1.5rem;
+    height: 90px;
+    margin-bottom: 0.3rem;
   }
 
   .card-shoe-img {
     width: 90%;
     /* Much smaller on mobile to avoid overlap */
-    top: -130px;
+    top: -135px;
     /* Pull it up higher */
     transform: rotate(-29deg);
   }
