@@ -66,10 +66,10 @@ const Contact = () => {
                 <span className="info-value">OPENED: Mon - Sun (10AM - 9PM)</span>
               </div>
               <div className="whatsapp-channel-section" style={{ marginTop: '20px' }}>
-                <a 
-                  href="https://whatsapp.com/channel/0029Vavk0rx4IBhMJV2wBd17" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://whatsapp.com/channel/0029Vavk0rx4IBhMJV2wBd17"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="channel-btn-premium"
                 >
                   FOLLOW OUR WHATSAPP CHANNEL
