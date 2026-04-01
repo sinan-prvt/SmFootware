@@ -66,6 +66,7 @@ DATABASE_URL = (
     os.environ.get('DATABASE_URL')
     or os.environ.get('POSTGRES_URL')
     or os.environ.get('SUPABASE_DB_URL')
+    or os.environ.get('SUPABASE_URL')  # Matches Vercel dashboard naming
 )
 
 if DATABASE_URL and DATABASE_URL.strip().lower().startswith(('postgres://', 'postgresql://')):

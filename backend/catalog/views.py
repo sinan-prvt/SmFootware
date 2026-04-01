@@ -1,9 +1,11 @@
+import os
+from django.conf import settings
 from rest_framework import viewsets, filters, permissions, status
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-from django.db import OperationalError, ProgrammingError
+from django.db import OperationalError, ProgrammingError, connection
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Category, Product, ProductImage
 from .serializers import CategorySerializer, ProductListSerializer, ProductDetailSerializer, ProductImageSerializer
@@ -22,9 +24,12 @@ def login(request):
 
     try:
         user = authenticate(username=username, password=password)
-    except (OperationalError, ProgrammingError):
+    except (OperationalError, ProgrammingError) as e:
         return Response(
-            {'error': 'Authentication service is not ready. Run backend migrations in production.'},
+            {
+                'error': 'Service is not ready. Run migrations or check DB connection.',
+                'details': str(e)
+            },
             status=status.HTTP_503_SERVICE_UNAVAILABLE
         )
 
@@ -36,13 +41,42 @@ def login(request):
 
     try:
         token, created = Token.objects.get_or_create(user=user)
-    except (OperationalError, ProgrammingError):
+    except (OperationalError, ProgrammingError) as e:
         return Response(
-            {'error': 'Token storage is not ready. Run backend migrations in production.'},
+            {
+                'error': 'Token storage is not ready.',
+                'details': str(e)
+            },
             status=status.HTTP_503_SERVICE_UNAVAILABLE
         )
 
     return Response({'token': token.key, 'user': user.username}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def health(request):
+    """Deep health check for database connectivity and environment status"""
+    db_status = "Unknown"
+    db_error = None
+    
+    try:
+        connection.ensure_connection()
+        db_status = "Connected"
+    except Exception as e:
+        db_status = "Disconnected"
+        db_error = str(e)
+        
+    return Response({
+        "status": "online" if db_status == "Connected" else "degraded",
+        "database": {
+            "status": db_status,
+            "error": db_error
+        },
+        "environment": {
+            "has_db_url": bool(os.environ.get('DATABASE_URL') or os.environ.get('SUPABASE_URL') or os.environ.get('SUPABASE_DB_URL')),
+            "debug": settings.DEBUG,
+        }
+    })
 
 
 class CategoryViewSet(viewsets.ModelViewSet):

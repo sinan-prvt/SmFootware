@@ -28,7 +28,8 @@ function Login({ setIsAuthenticated }) {
         setIsAuthenticated(true);
         navigate('/admin');
       } else {
-        setError('Invalid username or password');
+        const errorData = await response.json();
+        setError(errorData.error || errorData.details || 'Invalid username or password');
       }
     } catch (err) {
       setError('Login failed. Please try again.');

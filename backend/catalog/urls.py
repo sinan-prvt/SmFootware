@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet, ProductViewSet, ProductImageViewSet, login
+from .views import CategoryViewSet, ProductViewSet, ProductImageViewSet, login, health
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)
@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('auth/', include('rest_framework.urls')),
     path('token-auth/', login, name='token-auth'),
+    path('health/', health, name='health'),
 ]
