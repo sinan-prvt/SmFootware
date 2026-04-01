@@ -85,7 +85,22 @@ function ProductModal({ product, onClose }) {
           )}
 
           <h2>{product.name}</h2>
-          <p className="category">{product.gender} | {product.brand_name || product.category_name}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
+            <p className="category" style={{ margin: 0 }}>{product.gender} | {product.brand_name || product.category_name}</p>
+            {product.in_stock !== undefined && (
+              <span style={{ 
+                fontSize: '10px', 
+                fontWeight: '800', 
+                padding: '4px 8px', 
+                borderRadius: '4px',
+                background: product.in_stock ? '#e8f5e9' : '#ffebee',
+                color: product.in_stock ? '#2e7d32' : '#c62828',
+                textTransform: 'uppercase'
+              }}>
+                {product.in_stock ? 'In Stock' : 'Out of Stock'}
+              </span>
+            )}
+          </div>
           
           <div className="technical-specs-simple" style={{ marginTop: '12px', borderTop: '1px solid #eee', paddingTop: '15px' }}>
             {product.article && (

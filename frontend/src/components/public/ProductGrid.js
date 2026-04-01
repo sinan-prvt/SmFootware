@@ -16,7 +16,24 @@ function ProductGrid({ products, loading, onSelectProduct, onLoadMore, hasMore }
   }
 
   if (!loading && products.length === 0) {
-    return <div className="no-products">No products found</div>;
+    return (
+      <div className="no-products-premium">
+        <div className="empty-state-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#eee" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M8 10H12" stroke="#eee" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <h3>No Products Found</h3>
+        <p>We couldn't find any products matching your selection. Try clearing your filters or exploring our other collections.</p>
+        <button 
+          className="empty-state-btn"
+          onClick={() => window.location.href = '/'}
+        >
+          VIEW ALL PRODUCTS
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -38,6 +55,11 @@ function ProductGrid({ products, loading, onSelectProduct, onLoadMore, hasMore }
                   alt={product.images[0].alt_text || product.name}
                   className="product-image"
                 />
+              )}
+              {product.in_stock !== undefined && (
+                <span className={`stock-status-badge ${product.in_stock ? 'in-stock' : 'out-of-stock'}`}>
+                  {product.in_stock ? 'In Stock' : 'Out of Stock'}
+                </span>
               )}
               <div className="product-card-overlay">
                 <span>VIEW DETAILS</span>
