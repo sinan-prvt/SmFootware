@@ -60,19 +60,34 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Prefer explicit DB env vars used by common hosts.
-# Intentionally ignore SUPABASE_URL (dashboard URL) to prevent accidental misconfiguration.
+# Robust database configuration
 DATABASE_URL = (
     os.environ.get('DATABASE_URL')
     or os.environ.get('POSTGRES_URL')
     or os.environ.get('SUPABASE_DB_URL')
-    or os.environ.get('SUPABASE_URL')  # Matches Vercel dashboard naming
+    or os.environ.get('SUPABASE_URL')
 )
 
-if DATABASE_URL and DATABASE_URL.strip().lower().startswith(('postgres://', 'postgresql://')):
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=60, ssl_require=not DEBUG)
-    }
+if DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.strip()
+
+if DATABASE_URL and DATABASE_URL.lower().startswith(('postgres://', 'postgresql://')):
+    try:
+        DATABASES = {
+            'default': dj_database_url.parse(
+                DATABASE_URL, 
+                conn_max_age=60, 
+                ssl_require=not DEBUG
+            )
+        }
+    except Exception:
+        # Fallback to sqlite if parsing fails (prevents total app crash)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 else:
     DATABASES = {
         'default': {
