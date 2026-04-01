@@ -50,6 +50,7 @@ function Hero() {
         <div className="dropdown-content">
           <a href="/" onClick={() => setIsMenuOpen(false)}>HOME</a>
           <a href="#collection" onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); scrollToCollection(); }}>SHOP</a>
+          <a href="/contact" onClick={() => setIsMenuOpen(false)}>CONTACT</a>
           <a href="/admin" className="dropdown-login" onClick={() => setIsMenuOpen(false)}>LOGIN</a>
           <div className="dropdown-footer">
             <p>SM FOOTWARE</p>

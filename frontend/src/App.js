@@ -3,6 +3,7 @@ import './styles/App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AdminPanel from './pages/AdminPanel';
 import PublicCatalog from './pages/PublicCatalog';
+import Contact from './pages/Contact';
 import Login from './pages/Login';
 import SplashScreen from './components/public/SplashScreen';
 
@@ -40,6 +41,7 @@ function App() {
           path="/admin/*"
           element={isAuthenticated ? <AdminPanel setIsAuthenticated={setIsAuthenticated} /> : <Navigate to="/admin/login" />}
         />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/" element={<PublicCatalog />} />
       </Routes>
     </BrowserRouter>

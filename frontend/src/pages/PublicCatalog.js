@@ -129,9 +129,9 @@ function PublicCatalog() {
             </div>
             <div className="footer-links">
               <a href="/admin">Vendor Portal</a>
+              <a href="/contact">Contact Us</a>
               <a href="#collection">Privacy Policy</a>
               <a href="#collection">Terms of Service</a>
-              <a href="#collection">Contact Us</a>
             </div>
           </div>
           <div className="footer-bottom">
