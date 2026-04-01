@@ -73,10 +73,12 @@ if DATABASE_URL:
 
 if DATABASE_URL and DATABASE_URL.lower().startswith(('postgres://', 'postgresql://')):
     try:
+        # Disable conn_max_age if using Supabase pooler (port 6543) to prevent Transaction Mode errors
+        is_pooler = ':6543' in DATABASE_URL
         DATABASES = {
             'default': dj_database_url.parse(
                 DATABASE_URL, 
-                conn_max_age=60, 
+                conn_max_age=0 if is_pooler else 60, 
                 ssl_require=not DEBUG
             )
         }
