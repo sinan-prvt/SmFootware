@@ -27,7 +27,7 @@ function Hero() {
       {/* Top Navigation */}
       <nav className="hero-nav">
         <div className="nav-logo">
-          <img src="/logo.png" alt="SM Footware Logo" style={{ width: 'auto', height: '40px', objectFit: 'contain' }} />
+          <img src="/logo.png" alt="SM Footwear Logo" style={{ width: 'auto', height: '40px', objectFit: 'contain' }} />
         </div>
         <div 
           className={`nav-menu ${isMenuOpen ? 'open' : ''}`} 
@@ -40,7 +40,7 @@ function Hero() {
         
         <div className="nav-actions" style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
           <div className="nav-cart" style={{fontWeight: '700', fontSize: '14px', letterSpacing: '1px'}}>
-            SM FOOTWARE
+            SM FOOTWEAR
           </div>
         </div>
       </nav>
@@ -53,7 +53,7 @@ function Hero() {
           <a href="/contact" onClick={() => setIsMenuOpen(false)}>CONTACT</a>
           <a href="/admin" className="dropdown-login" onClick={() => setIsMenuOpen(false)}>LOGIN</a>
           <div className="dropdown-footer">
-            <p>SM FOOTWARE</p>
+            <p>SM FOOTWEAR</p>
           </div>
         </div>
       </div>

@@ -143,9 +143,9 @@ function ProductModal({ product, onClose }) {
           </div>
 
           <div className="modal-actions" style={{ marginTop: '25px' }}>
-            {product.show_price && product.price && (
+            {product.show_price && product.price ? (
               <p className="price" style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '15px' }}>₹{parseFloat(product.price).toLocaleString('en-IN')}</p>
-            )}
+            ) : null}
             <button className="whatsapp-btn" onClick={handleWhatsApp}>
               📱 Contact on WhatsApp
             </button>

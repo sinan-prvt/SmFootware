@@ -124,7 +124,7 @@ function PublicCatalog() {
         <footer className="catalog-footer">
           <div className="footer-content">
             <div className="footer-brand">
-              <h3>SM FOOTWARE</h3>
+              <h3>SM FOOTWEAR</h3>
               <p>Premium authentic sneakers & apparel.</p>
             </div>
             <div className="footer-links">
@@ -135,7 +135,7 @@ function PublicCatalog() {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} SM Footware. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} SM Footwear. All rights reserved.</p>
           </div>
         </footer>
       </ScrollReveal>

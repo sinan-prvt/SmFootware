@@ -106,7 +106,11 @@ class ProductViewSet(viewsets.ModelViewSet):
         product_id = request.data.get('product_id')
         image = request.FILES.get('image')
         alt_text = request.data.get('alt_text', '')
-        is_primary = request.data.get('is_primary', False)
+        is_primary = request.data.get('is_primary')
+        if isinstance(is_primary, str):
+            is_primary = is_primary.lower() == 'true'
+        else:
+            is_primary = bool(is_primary)
 
         try:
             product = Product.objects.get(id=product_id)

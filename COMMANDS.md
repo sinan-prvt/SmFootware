@@ -276,7 +276,7 @@ sqlite> .quit
 
 **All commands should be run from the project root directory:**
 ```
-c:\Users\ADMIN\Desktop\SmFootware\
+c:\Users\ADMIN\Desktop\SmFootwear\
 ```
 
 Happy developing! 🚀

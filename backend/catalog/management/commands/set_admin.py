@@ -14,7 +14,7 @@ class Command(BaseCommand):
         # Create new admin
         User.objects.create_superuser(
             username='smadmin',
-            email='admin@smfootware.com',
+            email='admin@smfootwear.com',
             password='9495381001'
         )
         print("- New admin 'smadmin' created with password '9495381001'.")

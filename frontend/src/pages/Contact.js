@@ -8,7 +8,7 @@ const Contact = () => {
   }, []);
 
   const handleWhatsApp = (number) => {
-    const message = "Hi SM Footware, I'd like to get in touch!";
+    const message = "Hi SM Footwear, I'd like to get in touch!";
     window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
@@ -55,7 +55,7 @@ const Contact = () => {
             <div className="store-info-premium">
               <div className="info-row">
                 <span className="info-label">EMAIL</span>
-                <span className="info-value">sales@smfootware.com</span>
+                <span className="info-value">sales@smfootwear.com</span>
               </div>
               <div className="info-row">
                 <span className="info-label">ADDRESS</span>
@@ -66,10 +66,10 @@ const Contact = () => {
                 <span className="info-value">OPENED: Mon - Sun (10AM - 9PM)</span>
               </div>
               <div className="whatsapp-channel-section" style={{ marginTop: '20px' }}>
-                <a
-                  href="https://whatsapp.com/channel/0029Vavk0rx4IBhMJV2wBd17"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <a 
+                  href="https://whatsapp.com/channel/0029Vavk0rx4IBhMJV2wBd17" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
                   className="channel-btn-premium"
                 >
                   FOLLOW OUR WHATSAPP CHANNEL

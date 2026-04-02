@@ -192,13 +192,22 @@ function ProductManager({ activeTab, setActiveTab }) {
              const imgForm = new FormData();
              imgForm.append('product_id', productId);
              imgForm.append('image', selectedFiles[i]);
-             imgForm.append('is_primary', i === 0 ? "true" : "false");
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
-             await fetch(`${baseUrl}/products/upload_image/`, {
-               method: 'POST',
-               headers: { 'Authorization': `Token ${token}` },
-               body: imgForm
-             });
+              imgForm.append('is_primary', i === 0 ? "true" : "false");
+              
+              const imgBaseUrl = (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '');
+              
+              try {
+                const imgResp = await fetch(`${imgBaseUrl}/api/products/upload_image/`, {
+                  method: 'POST',
+                  headers: { 'Authorization': `Token ${token}` },
+                  body: imgForm
+                });
+                if (!imgResp.ok) {
+                  console.error('Failed to upload image', i);
+                }
+              } catch (err) {
+                console.error('Network error uploading image', i, err);
+              }
           }
         }
 
@@ -274,7 +283,7 @@ function ProductManager({ activeTab, setActiveTab }) {
               <div className="modal-media-side">
                 <div className="primary-display">
                     {selectedProduct.primary_image ? (
-                        <img src={selectedProduct.primary_image.image.startsWith('http') ? selectedProduct.primary_image.image : `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}${selectedProduct.primary_image.image}`} alt={selectedProduct.name} />
+                        <img src={selectedProduct.primary_image.image.startsWith('http') ? selectedProduct.primary_image.image : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${selectedProduct.primary_image.image}`} alt={selectedProduct.name} />
                     ) : (
                         <div className="no-img-big">NO IMAGE</div>
                     )}
@@ -282,7 +291,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                 <div className="gallery-strip">
                     {selectedProduct.images && selectedProduct.images.map((img, i) => (
                         <div key={i} className="gallery-thumb">
-                            <img src={img.image.startsWith('http') ? img.image : `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}${img.image}`} alt="" />
+                            <img src={img.image.startsWith('http') ? img.image : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${img.image}`} alt="" />
                         </div>
                     ))}
                 </div>
@@ -313,7 +322,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                     </div>
                     <div className="spec-tile">
                         <label>PRICE</label>
-                        <span className="price-bold">₹{parseFloat(selectedProduct.price).toLocaleString('en-IN')}</span>
+                        <span className="price-bold">₹{selectedProduct.price ? parseFloat(selectedProduct.price).toLocaleString('en-IN') : '0'}</span>
                     </div>
                 </div>
 
@@ -570,7 +579,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                     <td className="col-article">
                       <div className="article-thumb-mini">
                         {prod.primary_image ? (
-                          <img src={prod.primary_image.image.startsWith('http') ? prod.primary_image.image : `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}${prod.primary_image.image}`} alt="" />
+                          <img src={prod.primary_image.image.startsWith('http') ? prod.primary_image.image : `${(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api').replace(/\/$/, '').replace('/api', '')}${prod.primary_image.image}`} alt="" />
                         ) : (
                           <div className="no-img-mini">#</div>
                         )}
@@ -600,7 +609,7 @@ function ProductManager({ activeTab, setActiveTab }) {
                     </td>
                     <td className="col-price">
                         <span className="currency-symbol">₹</span>
-                        <span className="price-value">{parseFloat(prod.price).toLocaleString('en-IN')}</span>
+                        <span className="price-value">{prod.price ? parseFloat(prod.price).toLocaleString('en-IN') : '0'}</span>
                     </td>
                     <td className="col-actions">
                       <div className="action-button-group">

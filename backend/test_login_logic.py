@@ -3,7 +3,7 @@ import django
 import sys
 
 # Set up Django environment
-sys.path.append(r'c:\Users\ADMIN\Desktop\SmFootware\backend')
+sys.path.append(r'c:\Users\ADMIN\Desktop\SmFootwear\backend')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 

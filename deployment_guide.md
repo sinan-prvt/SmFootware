@@ -1,4 +1,4 @@
-# 🚀 SmFootware: Ultimate Free Deployment Guide
+# 🚀 SmFootwear: Ultimate Free Deployment Guide
 
 This guide will walk you through deploying your **Django Backend** and **React Frontend** for **FREE**. 
 
@@ -6,7 +6,7 @@ This guide will walk you through deploying your **Django Backend** and **React F
 
 ## 🏗️ Pre-deployment Checklist
 
-1.  **GitHub Repo**: ✅ Done ([sinan-prvt/SmFootware](https://github.com/sinan-prvt/SmFootware))
+1.  **GitHub Repo**: ✅ Done ([sinan-prvt/SmFootwear](https://github.com/sinan-prvt/SmFootwear))
 2.  **Supabase Account**: [Sign up here](https://supabase.com/) (Database)
 3.  **Cloudinary Account**: [Sign up here](https://cloudinary.com/) (Images)
 
@@ -27,9 +27,9 @@ This guide will walk you through deploying your **Django Backend** and **React F
 
 ### 🧠 C.1: Deploy Backend (Vercel)
 1.  Go to [Vercel Dashboard](https://vercel.com/new).
-2.  Import your `SmFootware` repo.
+2.  Import your `SmFootwear` repo.
 3.  **Project Configuration**:
-    - **Name**: `sm-footware-api`
+    - **Name**: `sm-footwear-api`
     - **Root Directory**: `backend`
     - **Framework Preset**: `Other`
 4.  **Environment Variables** (Add these):
@@ -40,7 +40,7 @@ This guide will walk you through deploying your **Django Backend** and **React F
     - `SECRET_KEY`: (Any random string)
     - `DEBUG`: `False`
 5.  Click **Deploy**.
-6.  Once live, copy the URL (e.g., `https://sm-footware-api.vercel.app`).
+6.  Once live, copy the URL (e.g., `https://sm-footwear-api.vercel.app`).
 
 ### ✅ C.1.1: Run Production Migrations (Required)
 Vercel does not automatically run Django migrations for your database.
@@ -64,12 +64,12 @@ Without this step, `/api/token-auth/` can return server errors in production.
 1.  Go to [Vercel Dashboard](https://vercel.com/new).
 2.  Import the **same** repo again.
 3.  **Project Configuration**:
-    - **Name**: `sm-footware-store`
+    - **Name**: `sm-footwear-store`
     - **Root Directory**: `frontend`
     - **Framework Preset**: `Create React App`
 4.  **Environment Variables**:
     - `REACT_APP_API_BASE_URL`: (Paste your Backend URL + `/api`)
-      *Example: `https://sm-footware-api.vercel.app/api`*
+      *Example: `https://sm-footwear-api.vercel.app/api`*
 5.  Click **Deploy**.
 
 ---

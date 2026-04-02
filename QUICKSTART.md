@@ -141,7 +141,7 @@ PORT=3001 npm start
 ## 📚 File Structure
 
 ```
-SmFootware/
+SmFootwear/
 ├── backend/
 │   ├── catalog/              ← Main app
 │   ├── config/               ← Settings
