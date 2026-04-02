@@ -144,6 +144,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'https://sm-footwear-store.vercel.app',
     'https://sm-footwear.vercel.app',
+    'https://sm-footware-store.vercel.app',
+    'https://sm-footware.vercel.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -151,6 +153,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:3000',
     'https://sm-footwear-store.vercel.app',
     'https://sm-footwear.vercel.app',
+    'https://sm-footware-store.vercel.app',
+    'https://sm-footware.vercel.app',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
