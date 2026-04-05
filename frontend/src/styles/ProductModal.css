@@ -75,7 +75,6 @@
   background: #f5f5f5;
 }
 
-/* LEFT SIDE: GALLERY */
 .modal-gallery {
   flex: 1.2;
   background-color: #f6f6f6;
@@ -138,7 +137,6 @@
   color: #888;
 }
 
-/* RIGHT SIDE: INFO */
 .modal-info {
   flex: 1;
   padding: 60px 40px;
@@ -239,7 +237,6 @@
   transform: translateY(-2px);
 }
 
-/* THUMBNAILS */
 .thumbnail-gallery {
   margin-top: 30px;
   display: flex;
@@ -261,7 +258,6 @@
   border: 2px solid #000;
 }
 
-/* MOBILE OVERRIDES */
 @media (max-width: 768px) {
   .modal-overlay {
     padding: 8vw 5vw;
@@ -309,7 +305,6 @@
   .gallery-image {
     max-width: 90% !important;
     max-height: 220px !important;
-    /* Strict limit to ensure zero touch at top */
     width: auto !important;
     height: auto !important;
     object-fit: contain;
@@ -361,7 +356,6 @@
     justify-content: center;
   }
 
-  /* Centered Technical Specs */
   .technical-specs-simple {
     width: 100%;
     display: flex;
@@ -387,7 +381,6 @@
     height: 40px;
   }
 }
-/* Fullscreen Zoom Overlay Styles */
 .zoom-overlay {
   position: fixed;
   top: 0;

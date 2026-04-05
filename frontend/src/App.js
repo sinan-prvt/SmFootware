@@ -13,7 +13,6 @@ function App() {
 
   useEffect(() => {
     const initApp = async () => {
-      // Start both authentication check and a minimum delay for the splash screen
       const authPromise = checkAuth();
       const delayPromise = new Promise(resolve => setTimeout(resolve, 2000));
       

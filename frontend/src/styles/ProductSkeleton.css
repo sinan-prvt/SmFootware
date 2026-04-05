@@ -1,6 +1,6 @@
 .product-skeleton-card {
   background: white;
-  border-radius: 20px; /* Matched to real product card */
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.04);
   display: flex;
@@ -17,7 +17,7 @@
 }
 
 .skeleton-image-wrapper {
-  height: 220px; /* Matched to real image container height */
+  height: 220px;
   background-color: #f7f7f7;
   position: relative;
   overflow: hidden;
