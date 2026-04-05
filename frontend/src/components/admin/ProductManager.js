@@ -246,7 +246,7 @@ function ProductManager({ activeTab, setActiveTab }) {
     setEditingId(product.id);
     setSelectedFiles([]);
     setImagePreviews([]);
-    setActiveTab('add-product'); // Switch to form tab
+    setActiveTab('add-product');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

@@ -4,7 +4,6 @@ import ProductSkeleton from './ProductSkeleton';
 import ScrollReveal from './ScrollReveal';
 
 function ProductGrid({ products, loading, onSelectProduct, onLoadMore, hasMore }) {
-  // Show 8 skeletons for initial load when no products exist yet for a better visual
   if (loading && products.length === 0) {
     return (
       <div className="product-grid">

@@ -6,7 +6,6 @@ function ProductModal({ product, onClose }) {
   const [isZoomMode, setIsZoomMode] = useState(false);
 
   useEffect(() => {
-    // Lock background scroll
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = 'hidden';
     
