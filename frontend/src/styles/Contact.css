@@ -27,7 +27,6 @@
   letter-spacing: 1px;
 }
 
-/* MAIN GRID */
 .contact-main-grid {
   max-width: 1400px;
   margin: 0 auto;
@@ -37,7 +36,6 @@
   gap: 40px;
 }
 
-/* SECTION CARDS */
 .contact-section-card {
   background: #f9f9f9;
   padding: 3rem;
@@ -63,7 +61,6 @@
   color: #666;
 }
 
-/* NUMBERS STACK */
 .numbers-stack {
   display: flex;
   flex-direction: column;
@@ -129,7 +126,6 @@
   font-weight: 800;
 }
 
-/* STORE INFO PREMIUM */
 .store-info-premium {
   display: flex;
   flex-direction: column;
@@ -200,7 +196,6 @@
   box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
 }
 
-/* MAP FULL */
 .contact-map-full {
   width: 100%;
   padding: 0 5vw 6rem 5vw;
@@ -215,7 +210,6 @@
   border: 1px solid #eee;
 }
 
-/* FOOTER MINIMAL */
 .footer-copyright-simple {
   padding: 4rem;
   text-align: center;
@@ -225,7 +219,6 @@
   font-weight: 600;
 }
 
-/* MOBILE RESPONSIVE */
 @media (max-width: 992px) {
   .contact-hero-premium h1 { font-size: 3rem; }
   .contact-main-grid { grid-template-columns: 1fr; gap: 20px; }

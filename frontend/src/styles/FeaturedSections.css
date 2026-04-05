@@ -7,7 +7,6 @@
   font-family: 'Outfit', sans-serif;
 }
 
-/* FEATURED CARDS */
 .featured-cards-section {
   padding: 0 5vw;
   margin-bottom: 6rem;
@@ -131,10 +130,8 @@
   opacity: 0.9;
 }
 
-/* CUSTOMER REVIEWS (TESTIMONIALS) */
 .customer-reviews-section {
   background-color: #f9f9f9;
-  /* Clean, modern grey/white */
   padding: 6rem 0;
   text-align: center;
   overflow: hidden;
@@ -272,7 +269,6 @@
   color: #eee;
 }
 
-/* LAPTOP & TABLET OPTIMIZATION */
 @media (max-width: 1200px) {
   .featured-cards-container {
     gap: 30px;
@@ -284,8 +280,8 @@
   }
 
   .card-shoe-img {
-    width: 115%; /* Slightly smaller for mid-screens */
-    top: -110px; /* Pull up more for laptops */
+    width: 115%;
+    top: -110px;
   }
 
   .card-top {
@@ -294,7 +290,6 @@
   }
 }
 
-/* MOBILE RESPONSIVENESS */
 @media (max-width: 992px) {
 
   .featured-cards-container {
@@ -311,7 +306,6 @@
     max-width: 320px;
     margin-bottom: 2rem;
     padding: 4.5rem 1.5rem 2.5rem 1.5rem;
-    /* Increased padding-top */
   }
 
   .card-top {
@@ -321,9 +315,7 @@
 
   .card-shoe-img {
     width: 90%;
-    /* Much smaller on mobile to avoid overlap */
     top: -135px;
-    /* Pull it up higher */
     transform: rotate(-29deg);
   }
 
