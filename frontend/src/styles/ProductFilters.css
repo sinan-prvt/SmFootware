@@ -8,7 +8,7 @@
 .filter-controls-upper {
   display: flex;
   justify-content: center;
-  margin-bottom: 3.5rem; /* Increased gap for 'Elite' feel */
+  margin-bottom: 3.5rem
 }
 
 .search-box {
@@ -21,7 +21,7 @@
 
 .search-icon {
   position: absolute;
-  left: 8px; /* Fixed alignment: no longer touching the line edge */
+  left: 8px;
   top: 50%;
   transform: translateY(-50%);
   color: #bbb;
@@ -29,7 +29,7 @@
 
 .search-input-premium {
   width: 100%;
-  padding: 12px 12px 12px 45px; /* Increased padding-left for icon */
+  padding: 12px 12px 12px 45px;
   border: none;
   border-bottom: 1.5px solid #eee;
   background: transparent;
@@ -49,7 +49,7 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 10px 0 15px 0; /* Extra vertical space */
+  padding: 10px 0 15px 0;
   margin-top: 0.5rem;
 }
 

@@ -236,7 +236,6 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Premium Empty State */
 .no-products-premium {
   grid-column: 1 / -1;
   text-align: center;
@@ -302,7 +301,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Reveal Animation Styles */
 .reveal-card {
   opacity: 0;
   transform: translateY(30px);

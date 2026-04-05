@@ -36,7 +36,6 @@
   margin-bottom: 5px;
 }
 
-/* FORM STYLES */
 .product-form-advanced {
   background: #fff;
   padding: 40px;
@@ -114,7 +113,6 @@
   accent-color: #111;
 }
 
-/* MEDIA UPLOAD SECTION */
 .form-media-upload {
   flex: 1;
   display: flex;
@@ -226,7 +224,6 @@
   font-size: 0.9rem;
 }
 
-/* INVENTORY DASHBOARD */
 .inventory-dashboard {
   margin-top: 50px;
   animation: slideUp 0.8s cubic-bezier(0.19, 1, 0.22, 1);
@@ -281,7 +278,6 @@
 
 .stat-status-pill.green { background: #ecfdf5; color: #10b981; }
 
-/* INVENTORY TABLE */
 .inventory-header-row {
   display: flex;
   justify-content: space-between;
@@ -386,7 +382,6 @@
   background: #fdfdfd !important;
 }
 
-/* TABLE COMPONENTS */
 .col-article {
   display: flex;
   align-items: center;
@@ -488,7 +483,6 @@
   filter: brightness(0.95);
 }
 
-/* ACTIONS */
 .action-button-group {
   display: flex;
   gap: 10px;
@@ -505,13 +499,13 @@
   border: 1.5px solid #eee;
   cursor: pointer;
   transition: all 0.2s;
-  color: #444; /* High-contrast professional gray */
+  color: #444;
 }
 
 .btn-act svg {
   width: 16px;
   height: 16px;
-  min-width: 16px; /* Prevent shrinking to 0px */
+  min-width: 16px;
   min-height: 16px;
   flex-shrink: 0;
   stroke-width: 2.5px !important;
@@ -527,7 +521,6 @@
 .btn-act.edit:hover { background: #111; color: #fff; }
 .btn-act.delete:hover { background: #fff1f1; border-color: #ef4444; color: #ef4444; }
 
-/* PAGINATION */
 .pagination-controls {
   margin-top: 50px;
   display: flex;
@@ -582,7 +575,6 @@
   color: #fff;
 }
 
-/* DETAIL MODAL */
 .product-detail-overlay {
   position: fixed;
   top: 0;
@@ -817,14 +809,11 @@
 .action-edit-btn { background: #111; color: #fff; border: none; }
 .action-delete-btn { background: #fff; color: #ef4444; border: 1.5px solid #ef4444; }
 
-/* PROFESSIONAL MINIMALIST REDESIGN (CLEAN & COMPACT) */
-/* CORRECTED PROFESSIONAL RESPONSIVE (MOBILE-OPTIMIZED) */
 @media (max-width: 768px) {
   .product-manager-container {
     padding: 12px;
   }
   
-  /* 3-COLUMN COMPACT STATS */
   .dashboard-stats-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
@@ -867,7 +856,6 @@
     height: 14px;
   }
 
-  /* CORRECTED GRID ARCHITECTURE (MOBILE) */
   .inventory-table thead { display: none; }
   .table-container { background: transparent; border: none; box-shadow: none; }
   .inventory-table, .inventory-table tbody, .inventory-table tr, .inventory-table td { display: block; width: 100%; }
@@ -888,11 +876,9 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.02);
   }
 
-  /* AREA MAPPING */
   .col-article { grid-area: thumb; padding: 0 !important; border: none !important; }
   .col-product { grid-area: info; padding: 0 !important; border: none !important; display: flex; flex-direction: column; justify-content: flex-start; }
   
-  /* MERGING PRICE AND STATUS INTO THE 'META' AREA */
   .col-price, .col-status { 
     grid-area: meta; 
     padding: 0 !important; 
@@ -927,7 +913,7 @@
     font-weight: 800;
     color: #111;
     line-height: 1.2;
-    padding-right: 60px; /* Space for actions */
+    padding-right: 60px;
   }
 
   .pill-brand {
@@ -953,7 +939,6 @@
     font-weight: 900;
   }
 
-  /* GHOSTED ACTIONS (TOP RIGHT) */
   .col-actions {
     position: absolute;
     top: 12px;
@@ -967,7 +952,6 @@
   .btn-act { width: 30px; height: 30px; border-radius: 7px; background: #fff; border: 1px solid #f0f0f0; color: #ccc; }
   .btn-act svg { width: 14px; height: 14px; min-width: 14px; min-height: 14px; }
 
-  /* FULLSCREEN MODAL - MOBILE PREMIUM */
   .product-detail-modal { width: 100%; height: 100%; max-height: 100vh; border-radius: 0; }
   .modal-content-grid { grid-template-columns: 1fr; height: calc(100vh - 80px); }
   .modal-info-side { padding: 15px; gap: 12px; }
@@ -977,7 +961,6 @@
   .pagination-controls { margin-top: 15px; padding-bottom: 15px; gap: 10px; }
   .pag-btn { font-size: 0.65rem; padding: 6px 12px; }
 
-  /* CORRECTED PREMIUM FORM (MOBILE) */
   .product-form-advanced {
     padding: 20px;
     border-radius: 16px;
@@ -1015,7 +998,6 @@
   }
 }
 
-/* CUSTOM TOAST STYLING */
 [data-reloading="true"] { opacity: 0.5; }
 
 .react-hot-toast {
