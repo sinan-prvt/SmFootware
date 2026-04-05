@@ -6,7 +6,6 @@ function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Short delay to ensure splash screen has fully faded out
     const timer = setTimeout(() => setIsLoaded(true), 300);
     return () => clearTimeout(timer);
   }, []);
@@ -24,7 +23,6 @@ function Hero() {
 
   return (
     <div className={`hero-container ${isLoaded ? 'loaded' : ''}`}>
-      {/* Top Navigation */}
       <nav className="hero-nav">
         <div className="nav-logo">
           <img src="/logo.png" alt="SM Footwear Logo" style={{ width: 'auto', height: '40px', objectFit: 'contain' }} />
@@ -45,7 +43,6 @@ function Hero() {
         </div>
       </nav>
 
-      {/* Dropdown Menu - Moved outside nav to prevent flex interference */}
       <div className={`dropdown-menu ${isMenuOpen ? 'active' : ''}`}>
         <div className="dropdown-content">
           <a href="/" onClick={() => setIsMenuOpen(false)}>HOME</a>
@@ -58,19 +55,15 @@ function Hero() {
         </div>
       </div>
 
-      {/* Main Content Area */}
       <div className="hero-content">
 
-        {/* Background Large Text */}
         <div className="bg-text">09:36.5</div>
 
-        {/* Diagonal Background Lines */}
         <div className="bg-lines">
           <div className="line line-1"></div>
           <div className="line line-2"></div>
         </div>
 
-        {/* Orbiting Spheres */}
         <div className="sphere sphere-xl pos-1"></div>
         <div className="sphere sphere-l pos-2"></div>
         <div className="sphere sphere-m pos-3"></div>
@@ -78,7 +71,6 @@ function Hero() {
         <div className="sphere sphere-xs pos-5"></div>
         <div className="sphere sphere-small pos-6"></div>
 
-        {/* Shoe Image */}
         <div className="shoe-wrapper">
           <img
             src="/shoe.png"
@@ -86,18 +78,15 @@ function Hero() {
             className="shoe-img"
             onError={(e) => {
               e.target.onerror = null;
-              // Fallback inline styling or image if not found
               e.target.src = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop";
             }}
           />
         </div>
 
 
-        {/* Side Text / Annotations */}
         <div className="side-text left-side">SERIES 08</div>
         <div className="side-text right-side">092 / 365</div>
 
-        {/* Bottom Navigation Links */}
         <div className="bottom-links">
           <button className="bottom-link explore-btn" onClick={scrollToCollection}>EXPLORE</button>
           <button className="bottom-link shop-btn" onClick={scrollToCollection}>SHOP</button>

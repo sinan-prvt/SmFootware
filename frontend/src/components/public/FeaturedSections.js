@@ -6,7 +6,7 @@ const FeaturedSections = () => {
 
   const scrollReviews = (direction) => {
     if (reviewsRef.current) {
-      const scrollAmount = 430; // Card width + gap
+      const scrollAmount = 430;
       reviewsRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
@@ -25,8 +25,8 @@ const FeaturedSections = () => {
     {
       title: "ELEVATE",
       subtitle: "Blow Sneaker",
-      themeColor: "#b01a1a", // Dark Red
-      bgColor: "#fff9c4", // Light Yellow
+      themeColor: "#b01a1a",
+      bgColor: "#fff9c4",
       img: "/featured_dark.png",
       btnText: "MORE >",
       stars: 4
@@ -34,8 +34,8 @@ const FeaturedSections = () => {
     {
       title: "AUTHENTIC",
       subtitle: "White Sneaker",
-      themeColor: "#5c85d6", // Steel Blue
-      bgColor: "#e3f2fd", // Light Blue
+      themeColor: "#5c85d6",
+      bgColor: "#e3f2fd",
       img: "/featured_white.png",
       btnText: "MORE >",
       stars: 4
@@ -43,8 +43,8 @@ const FeaturedSections = () => {
     {
       title: "VELOCITY",
       subtitle: "Black Sneaker",
-      themeColor: "#858c1a", // Olive
-      bgColor: "#fce4ec", // Light Pink
+      themeColor: "#858c1a",
+      bgColor: "#fce4ec",
       img: "/featured_black.png",
       btnText: "MORE >",
       stars: 4
@@ -84,7 +84,6 @@ const FeaturedSections = () => {
 
   return (
     <div className="featured-sections-wrapper">
-      {/* Featured Collections Section */}
       <section className="featured-cards-section">
         <div className="featured-cards-container">
           {featuredCollections.map((col, idx) => (
@@ -115,7 +114,6 @@ const FeaturedSections = () => {
         </div>
       </section>
 
-      {/* Customer Reviews Section */}
       <section className="customer-reviews-section">
         <div className="reviews-header">
           <p className="testimonial-label">Testimonial</p>
