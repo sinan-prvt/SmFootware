@@ -70,15 +70,15 @@
 /* Giant wordmark: letters rise in a wave as the footer enters. */
 .footer-giant {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: clamp(40px, 6vw, 80px) auto 0;
   max-width: 1400px;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: min(15vw, 230px);
+  font-size: min(18.5vw, 290px);
   overflow: hidden;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
   user-select: none;
 }
 
