@@ -33,7 +33,8 @@
 }
 
 .login-logo {
-  height: 60px;
+  height: 48px;
+  max-width: 100%;
   margin-bottom: 1.5rem;
   object-fit: contain;
 }

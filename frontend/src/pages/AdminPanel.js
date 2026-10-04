@@ -19,7 +19,7 @@ function AdminPanel({ setIsAuthenticated }) {
     <div className="admin-panel">
       <Toaster position="top-right" reverseOrder={false} />
       <header className="admin-header">
-        <h1>Admin Panel</h1>
+        <h1 className="admin-brand"><img src="/favicon.svg" alt="" /> Footonia Admin</h1>
         <button onClick={handleLogout} className="logout-btn">Logout</button>
       </header>
 

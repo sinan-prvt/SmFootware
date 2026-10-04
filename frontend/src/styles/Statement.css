@@ -1,0 +1,21 @@
+.statement {
+  --p: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(90px, 14vw, 180px) var(--gutter);
+}
+
+.statement-text {
+  margin-top: 28px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 4.6vw, 64px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+/* Each word lights up as the section scrolls through the viewport. */
+.statement-word {
+  opacity: clamp(0.12, calc((var(--p) * 1.9 - 0.4 - var(--w)) * 6), 1);
+  transition: opacity 0.2s linear;
+}

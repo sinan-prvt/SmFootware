@@ -1,36 +1,91 @@
 .splash-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: #ffffff;
+  inset: 0;
+  z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
-  transition: opacity 0.8s ease-out;
+  background: var(--ink, #0d0d0d);
+  color: #fff;
+  overflow: hidden;
 }
 
-.logo-container {
+.splash-screen::before {
+  content: '';
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 77, 28, 0.35), transparent 65%);
+  animation: splashGlow 2.4s ease-out both;
+}
+
+@keyframes splashGlow {
+  from { transform: scale(0.2); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.splash-inner {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 18px;
+  padding: 0 16px;
 }
 
-.splash-logo {
-  max-width: 180px;
-  height: auto;
+.splash-mark {
+  width: 64px;
+  height: 64px;
+  animation: markIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes markIn {
+  from { transform: rotate(-120deg) scale(0); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.splash-word {
+  display: flex;
+  overflow: hidden;
+  font-family: var(--font-display, 'Arial Black', sans-serif);
+  font-weight: 800;
+  font-size: clamp(44px, 11vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.splash-word span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: letterUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(0.25s + var(--i) * 0.06s);
+}
+
+@keyframes letterUp {
+  to { transform: translateY(0); }
+}
+
+.splash-tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
   opacity: 0;
-  transform: scale(0.85);
-  animation: logoFadeIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: tagIn 0.8s ease 0.9s forwards;
+}
+
+@keyframes tagIn {
+  to { opacity: 1; }
 }
 
 .loading-bar-container {
-  width: 120px;
+  width: 160px;
   height: 2px;
-  background-color: #f0f0f0;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.15);
   overflow: hidden;
   border-radius: 2px;
 }
@@ -38,30 +93,12 @@
 .loading-bar {
   width: 100%;
   height: 100%;
-  background-color: #000000;
-  transform: translateX(-100%);
-  animation: loadingBarSlide 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background: linear-gradient(90deg, #ff4d1c, #d4ff3a);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  animation: loadFill 1.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
-@keyframes logoFadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes loadingBarSlide {
-  0% {
-    transform: translateX(-100%);
-  }
-  50% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+@keyframes loadFill {
+  to { transform: scaleX(1); }
 }

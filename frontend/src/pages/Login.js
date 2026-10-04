@@ -42,7 +42,7 @@ function Login({ setIsAuthenticated }) {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <img src="/logo.png" alt="SM Footwear" className="login-logo" />
+          <img src="/logo.svg" alt="Footonia" className="login-logo" />
           <h1>Login to your Account</h1>
           <div className="admin-warning">
              PRIVATE ADMIN PORTAL: ACCESS RESTRICTED

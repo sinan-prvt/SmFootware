@@ -22,10 +22,18 @@
 }
 
 .admin-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.25rem;
   font-weight: 900;
   letter-spacing: -0.5px;
   text-transform: uppercase;
+}
+
+.admin-brand img {
+  width: 30px;
+  height: 30px;
 }
 
 .logout-btn {
