@@ -128,7 +128,23 @@
 }
 
 @media (max-width: 600px) {
+  .site-footer {
+    padding-top: 56px;
+  }
+
+  .footer-top {
+    gap: 36px;
+  }
+
+  .footer-cta {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+
   .footer-cols {
     gap: 40px;
+  }
+
+  .footer-bottom {
+    margin-top: 18px;
   }
 }

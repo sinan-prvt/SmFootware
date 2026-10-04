@@ -72,3 +72,15 @@
 @keyframes starSpin {
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 680px) {
+  .marquee {
+    padding: 14px 0;
+  }
+
+  .marquee-item {
+    gap: 22px;
+    padding-right: 22px;
+    font-size: 22px;
+  }
+}

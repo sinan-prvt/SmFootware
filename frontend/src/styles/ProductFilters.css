@@ -127,3 +127,21 @@
 .tag-pill.active::before {
   transform: scale(1);
 }
+
+@media (max-width: 680px) {
+  .catalog-filters {
+    margin-bottom: 22px;
+    border-radius: 24px;
+    padding: 8px;
+  }
+
+  .search-input-premium {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .tag-pill {
+    padding: 9px 16px;
+    font-size: 11px;
+  }
+}

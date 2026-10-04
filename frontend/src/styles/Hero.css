@@ -488,8 +488,31 @@
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .hero {
-    padding-top: 100px;
-    padding-bottom: 110px;
+    min-height: 0;
+    padding-top: 84px;
+    padding-bottom: 64px;
+  }
+
+  /* Scroll-linked fades are for desktop only: on a stacked layout the
+     copy sits below the fold and must stay fully visible. */
+  .hero-copy {
+    transform: none;
+    opacity: 1;
+  }
+
+  .hero-grid-lines {
+    transform: none;
+  }
+
+  .shoe-float {
+    transform:
+      perspective(1100px)
+      translate3d(calc(var(--mx) * 12px), calc(var(--my) * 8px), 0)
+      rotateY(calc(var(--mx) * 10deg));
+  }
+
+  .scroll-cue {
+    display: none;
   }
 
   .hero-inner {
@@ -499,7 +522,7 @@
 
   .hero-stage {
     order: -1;
-    max-width: 440px;
+    width: min(100%, 340px);
   }
 
   .hero-copy {
@@ -518,19 +541,55 @@
   }
 
   .spin-badge {
-    width: 96px;
-    height: 96px;
+    width: 84px;
+    height: 84px;
   }
 
   .spin-core {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero-title {
+    margin: 16px 0 18px;
+  }
+
+  .hero-ctas {
+    margin-top: 26px;
+  }
+
+  .hero-features {
+    margin-top: 32px;
+    padding-top: 20px;
   }
 }
 
 @media (max-width: 520px) {
+  .hero-title {
+    font-size: clamp(40px, 12.5vw, 64px);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-ctas .magnet,
+  .hero-ctas .btn-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
   .hero-features {
-    gap: 18px;
+    justify-content: space-between;
+    gap: 12px;
   }
 
   .hero-features strong {

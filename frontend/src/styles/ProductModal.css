@@ -415,12 +415,28 @@
     padding: 0;
   }
 
+  /* Bottom sheet: image stays on top, details scroll, actions stay pinned. */
   .modal-content {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     max-height: 92vh;
+    max-height: 92dvh;
     border-radius: 28px 28px 0 0;
-    overflow-y: auto;
+    overflow: hidden;
     animation: sheetUp 0.6s var(--ease-out);
+  }
+
+  .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    z-index: 6;
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(13, 13, 13, 0.2);
+    transform: translateX(-50%);
   }
 
   @keyframes sheetUp {
@@ -429,18 +445,44 @@
   }
 
   .modal-gallery {
+    flex: 0 0 auto;
     min-height: 0;
-    height: 280px;
-    padding: 30px 20px;
+    height: min(260px, 34vh);
+    padding: 24px 20px;
   }
 
   .gallery-image {
-    max-height: 230px;
+    max-height: 100%;
   }
 
   .modal-info {
-    padding: 22px 20px 28px;
-    overflow: visible;
+    flex: 1;
+    min-height: 0;
+    padding: 20px 20px 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+
+  .modal-actions {
+    position: sticky;
+    bottom: 0;
+    margin: 0 -20px;
+    padding: 24px 20px calc(16px + env(safe-area-inset-bottom));
+    background: linear-gradient(rgba(255, 255, 255, 0), #fff 26px);
+  }
+
+  .modal-info .price {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .whatsapp-btn {
+    padding: 16px 20px;
   }
 
   .modal-info h2 {

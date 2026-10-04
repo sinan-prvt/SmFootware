@@ -84,6 +84,13 @@ button:hover {
   body {
     font-size: 14px;
   }
+
+  /* iOS Safari zooms the page when focusing inputs smaller than 16px. */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 /* ---------- Shared UI primitives ---------- */

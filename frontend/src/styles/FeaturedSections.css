@@ -278,26 +278,102 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
+  /* Tablets and phones: a swipeable row instead of a stacked grid */
   .featured-cards-container {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    gap: 14px;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 12px;
+    overflow-x: auto;
+    overflow-y: hidden; /* otherwise the row also scrolls vertically and traps page scrolling */
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .featured-cards-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .featured-cards-container > .scroll-reveal {
+    flex: 0 0 44%;
+    scroll-snap-align: start;
+  }
+
+  .featured-card {
+    height: 100%;
+  }
+
+  .featured-card-inner {
+    height: 100%;
   }
 }
 
 @media (max-width: 680px) {
-  .featured-cards-container {
-    grid-template-columns: 1fr;
+  .featured-cards-section {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+
+  .section-head {
+    margin-bottom: 28px;
+    gap: 14px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 10vw, 44px);
+  }
+
+  .section-title .outline {
+    -webkit-text-stroke-width: 1.5px;
+  }
+
+  .section-lede {
+    font-size: 15px;
+  }
+
+  .featured-cards-container > .scroll-reveal {
+    flex-basis: 78%;
   }
 
   .featured-card-inner {
     min-height: 0;
+    height: 100%;
+    padding: 20px;
   }
 
-  .review-card {
-    width: 280px;
-    padding: 22px;
+  .card-img-wrap {
+    margin: 0 -6px;
+  }
+
+  .card-info h3 {
+    font-size: 24px;
+  }
+
+  .card-cta {
+    width: 46px;
+    height: 46px;
   }
 
   .customer-reviews-section {
+    padding: 64px 0;
     border-radius: 32px 32px 0 0;
+  }
+
+  .reviews-header {
+    margin-bottom: 32px;
+  }
+
+  .review-card {
+    width: 260px;
+    padding: 20px;
+    gap: 14px;
+  }
+
+  .review-text {
+    font-size: 15px;
   }
 }

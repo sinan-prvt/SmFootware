@@ -1,6 +1,7 @@
 .contact-page {
   background: var(--bg);
   min-height: 100vh;
+  overflow-x: hidden; /* fallback for browsers without clip (iOS < 16) */
   overflow-x: clip;
 }
 
@@ -278,14 +279,44 @@ a.info-value:hover {
 
 @media (max-width: 768px) {
   .contact-hero-premium {
-    padding-top: 130px;
-    padding-bottom: 70px;
+    padding-top: 110px;
+    padding-bottom: 56px;
   }
 
   .contact-hero-orb {
-    top: 90px;
-    right: -40px;
-    opacity: 0.85;
+    top: 70px;
+    right: -70px;
+    width: 190px;
+    opacity: 0.9;
+  }
+
+  .contact-title {
+    font-size: clamp(48px, 15vw, 80px);
+  }
+
+  .contact-title .accent {
+    -webkit-text-stroke-width: 1.5px;
+  }
+
+  .contact-main-grid {
+    padding-top: 48px;
+    gap: 16px;
+  }
+
+  .contact-card-title {
+    margin-bottom: 20px;
+  }
+
+  .number-value {
+    font-size: 16px;
+  }
+
+  .info-value {
+    font-size: 15px;
+  }
+
+  .contact-map-full {
+    padding-bottom: 56px;
   }
 
   .number-item {
