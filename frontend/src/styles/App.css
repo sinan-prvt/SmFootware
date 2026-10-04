@@ -13,7 +13,7 @@
   --accent-soft: #ffe1d6;
   --lime: #d4ff3a;
 
-  --font-display: 'Syne', 'Arial Black', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Arial Narrow', system-ui, sans-serif;
   --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,6 +83,13 @@ button:hover {
 @media (max-width: 768px) {
   body {
     font-size: 14px;
+  }
+
+  /* iOS Safari zooms the page when focusing inputs smaller than 16px. */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }
 

@@ -5,6 +5,7 @@ html {
 .public-catalog {
   background-color: var(--bg);
   width: 100%;
+  overflow-x: hidden; /* fallback for browsers without clip (iOS < 16) */
   overflow-x: clip;
   position: relative;
 }
@@ -68,4 +69,27 @@ html {
   padding: 3rem;
   font-size: 1.1rem;
   color: var(--muted);
+}
+
+@media (max-width: 680px) {
+  .collection-section {
+    padding: 64px 0 48px;
+  }
+
+  .catalog-header {
+    gap: 12px;
+    padding-bottom: 26px;
+  }
+
+  .catalog-title {
+    font-size: clamp(40px, 13vw, 64px);
+  }
+
+  .catalog-title-accent {
+    -webkit-text-stroke-width: 1.5px;
+  }
+
+  .catalog-header p {
+    font-size: 15px;
+  }
 }
