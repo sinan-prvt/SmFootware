@@ -287,3 +287,29 @@
   .admin-panel .skeleton-brand { width: 40%; height: 10px; }
   .admin-panel .skeleton-price { width: 30%; height: 14px; }
 }
+
+@media (max-width: 400px) {
+  .admin-brand {
+    gap: 8px;
+  }
+
+  .admin-brand img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .admin-brand-word {
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
+  .admin-brand-tag {
+    padding: 3px 7px;
+    font-size: 9px;
+  }
+
+  .logout-btn {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+}
