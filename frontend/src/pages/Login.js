@@ -40,47 +40,71 @@ function Login({ setIsAuthenticated }) {
 
   return (
     <div className="login-container">
-      <div className="login-card">
-        <div className="login-header">
-          <img src="/logo.svg" alt="Footonia" className="login-logo" />
-          <h1>Login to your Account</h1>
-          <div className="admin-warning">
-             PRIVATE ADMIN PORTAL: ACCESS RESTRICTED
-          </div>
+      <aside className="login-showcase" aria-hidden="true">
+        <div className="showcase-orb" />
+        <div className="showcase-ring" />
+        <div className="showcase-ring ring-2"><i /></div>
+        <div className="showcase-copy">
+          <span className="showcase-tag">Vendor portal</span>
+          <h2>Run the<br /><em>collection.</em></h2>
+          <p>Add drops, update stock and keep the Footonia catalog fresh.</p>
         </div>
+        <div className="showcase-giant">FOOTONIA</div>
+      </aside>
 
-        <form onSubmit={handleLogin} className="login-form">
-          <div className="input-group">
-            <label>Username / Email</label>
-            <input
-              type="text"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+      <div className="login-panel">
+        <a href="/" className="login-back">← Back to store</a>
+        <div className="login-card">
+          <div className="login-header">
+            <img src="/logo.svg" alt="Footonia" className="login-logo" />
+            <h1>Welcome back</h1>
+            <p className="login-sub">Sign in to manage your inventory.</p>
+            <div className="admin-warning">
+              <span className="warning-dot" /> Private admin portal · access restricted
+            </div>
           </div>
 
-          <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <form onSubmit={handleLogin} className="login-form">
+            <div className="input-group">
+              <label htmlFor="login-username">Username / Email</label>
+              <input
+                id="login-username"
+                type="text"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="login-password">Password</label>
+              <input
+                id="login-password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                required
+              />
+            </div>
+
+            {error && <div className="login-error">{error}</div>}
+
+            <button type="submit" className="login-submit-btn" disabled={loading}>
+              {loading ? (
+                <><span className="btn-spinner" /> Authenticating...</>
+              ) : (
+                <>Sign In <span className="submit-arrow" aria-hidden="true">→</span></>
+              )}
+            </button>
+          </form>
+
+          <div className="login-footer">
+            <p>Locked system · authorized access only</p>
           </div>
-
-          {error && <div className="error-banner">{error}</div>}
-
-          <button type="submit" className="login-submit-btn" disabled={loading}>
-            {loading ? 'Authenticating...' : 'Sign In'}
-          </button>
-        </form>
-
-        <div className="login-footer">
-          <p>Locked System: Authorized Access Only</p>
         </div>
       </div>
     </div>

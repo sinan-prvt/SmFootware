@@ -1,142 +1,231 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
-
+/* ==========================================================
+   FOOTONIA ADMIN — shell (header, tabs, shared skeletons)
+   ========================================================== */
 .admin-panel {
-  background-color: #fcfcfc;
   min-height: 100vh;
-  font-family: 'Outfit', sans-serif;
-  color: #111;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.admin-panel button:hover {
+  opacity: 1;
+}
+
+/* ---------- Header ---------- */
+.admin-panel {
+  /* Aligns header/tabs with the centred 1320px content column */
+  --admin-edge: max(var(--gutter), calc((100% - 1320px) / 2 + var(--gutter)));
 }
 
 .admin-header {
-  background-color: #fff;
-  color: #111;
-  padding: 0 25px;
-  height: 65px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
   position: sticky;
   top: 0;
   z-index: 1000;
-}
-
-.admin-header h1 {
+  height: 68px;
+  padding: 0 var(--admin-edge);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  font-size: 1.25rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-  text-transform: uppercase;
-}
-
-.admin-brand img {
-  width: 30px;
-  height: 30px;
-}
-
-.logout-btn {
-  background-color: transparent;
-  color: #ef4444;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  border: 1.5px solid #fef2f2;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-transform: uppercase;
-}
-
-.logout-btn:hover {
-  background-color: #fef2f2;
-  border-color: #ef4444;
-}
-
-.admin-nav {
-  background-color: #fff;
-  padding: 15px 20px;
-  display: flex;
-  gap: 10px;
-  border-bottom: 0px solid #eee;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.admin-nav::-webkit-scrollbar { display: none; }
-
-.admin-nav button {
-  background-color: #f5f5f5;
-  color: #888;
-  padding: 8px 18px;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-
-.admin-nav button:hover {
-  background-color: #eee;
-  color: #111;
-}
-
-.admin-nav button.active {
-  background-color: #111;
+  background: var(--ink);
   color: #fff;
 }
 
+.admin-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.admin-brand img {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.admin-brand:hover img {
+  transform: rotate(-12deg) scale(1.08);
+}
+
+.admin-brand-word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: 2px;
+}
+
+.admin-brand-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-store-btn {
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.view-store-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.logout-btn {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.4s var(--ease-out);
+}
+
+.logout-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ---------- Tabs ---------- */
+.admin-nav {
+  position: sticky;
+  top: 68px;
+  z-index: 900;
+  padding: 14px var(--admin-edge);
+  background: rgba(244, 242, 238, 0.85);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.admin-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-nav-track {
+  display: inline-flex;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.admin-nav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.35s var(--ease-out), color 0.25s ease;
+}
+
+.admin-nav button:hover {
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.admin-nav button.active {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.4);
+}
+
+.admin-nav button.active svg {
+  color: var(--accent);
+}
+
+.tab-label-short {
+  display: none;
+}
+
+/* ---------- Content ---------- */
 .admin-content {
-  padding: 30px;
-  max-width: 1300px;
+  max-width: 1320px;
   margin: 0 auto;
+  padding: 36px var(--gutter) 60px;
+  animation: adminFadeUp 0.6s var(--ease-out);
 }
 
-@media (max-width: 768px) {
-  .admin-header {
-    padding: 0 15px;
-    height: 60px;
-  }
-
-  .admin-header h1 {
-    font-size: 1.1rem;
-  }
-
-  .admin-nav {
-    padding: 10px 15px;
-    gap: 8px;
-  }
-
-  .admin-nav button {
-    padding: 8px 14px;
-    font-size: 0.75rem;
-  }
-
-  .admin-content {
-    padding: 15px;
-  }
+@keyframes adminFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
 }
 
-.skeleton-box {
-  background: #f6f7f8;
-  background-image: linear-gradient(
-    to right,
-    #f6f7f8 0%,
-    #edeef1 20%,
-    #f6f7f8 40%,
-    #f6f7f8 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 800px 104px;
+/* Shared admin section heading */
+.admin-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.admin-eyebrow::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* ---------- Toasts ---------- */
+.footonia-toast {
+  font-family: var(--font-body) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border-radius: 999px !important;
+  padding: 10px 18px !important;
+  background: var(--ink) !important;
+  color: #fff !important;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ---------- Skeletons (scoped so they don't clash with storefront ones) ---------- */
+.admin-panel .skeleton-box {
   display: inline-block;
   position: relative;
+  border-radius: 6px;
+  background: #e8e5de;
+  background-image: linear-gradient(90deg, #e8e5de 0%, #f4f2ee 20%, #e8e5de 40%, #e8e5de 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
   animation: skeleton-shimmer 1.5s infinite linear forwards;
-  border-radius: 4px;
 }
 
 @keyframes skeleton-shimmer {
@@ -144,16 +233,57 @@
   100% { background-position: 468px 0; }
 }
 
-.skeleton-thumb { width: 40px; height: 40px; border-radius: 8px; }
-.skeleton-name { width: 180px; height: 16px; margin-bottom: 8px; }
-.skeleton-brand { width: 100px; height: 12px; }
-.skeleton-price { width: 60px; height: 18px; }
-.skeleton-badge { width: 80px; height: 24px; border-radius: 100px; }
-.skeleton-action { width: 35px; height: 35px; border-radius: 8px; }
+.admin-panel .skeleton-thumb { width: 44px; height: 44px; border-radius: 12px; }
+.admin-panel .skeleton-name { width: 180px; height: 16px; margin-bottom: 8px; }
+.admin-panel .skeleton-brand { width: 100px; height: 12px; }
+.admin-panel .skeleton-price { width: 60px; height: 18px; }
+.admin-panel .skeleton-badge { width: 80px; height: 24px; border-radius: 999px; }
+.admin-panel .skeleton-action { width: 36px; height: 36px; border-radius: 10px; }
 
 @media (max-width: 768px) {
-  .skeleton-thumb { width: 75px; height: 75px; }
-  .skeleton-name { width: 70%; height: 14px; }
-  .skeleton-brand { width: 40%; height: 10px; }
-  .skeleton-price { width: 30%; height: 14px; }
+  .admin-header {
+    height: 60px;
+  }
+
+  .admin-nav {
+    top: 60px;
+    padding: 10px var(--admin-edge);
+  }
+
+  .admin-brand-word {
+    font-size: 16px;
+  }
+
+  .view-store-btn {
+    display: none;
+  }
+
+  .admin-nav-track {
+    display: flex;
+  }
+
+  .admin-nav button {
+    flex: 1;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .tab-label-full {
+    display: none;
+  }
+
+  .tab-label-short {
+    display: inline;
+  }
+
+  .admin-content {
+    padding-top: 22px;
+  }
+
+  .admin-panel .skeleton-thumb { width: 80px; height: 80px; }
+  .admin-panel .skeleton-name { width: 70%; height: 14px; }
+  .admin-panel .skeleton-brand { width: 40%; height: 10px; }
+  .admin-panel .skeleton-price { width: 30%; height: 14px; }
 }
