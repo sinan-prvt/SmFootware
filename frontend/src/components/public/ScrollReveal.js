@@ -4,19 +4,21 @@ import '../../styles/App.css';
 /**
  * ScrollReveal Component
  * Wraps children and animates them into view when they intersect with the viewport.
- * 
+ *
  * Props:
  * @param {number} delay - Optional delay in seconds
  * @param {number} threshold - How much of the element must be visible (0.0 to 1.0)
+ * @param {string} variant - up | down | left | right | scale | blur | flip | clip
  * @param {string} className - Additional CSS classes
  * @param {boolean} once - Should the animation only happen once? (Default: true)
  */
-const ScrollReveal = ({ 
-  children, 
-  delay = 0, 
-  threshold = 0.1, 
-  className = '', 
-  once = true 
+const ScrollReveal = ({
+  children,
+  delay = 0,
+  threshold = 0.1,
+  variant = 'up',
+  className = '',
+  once = true
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
@@ -52,8 +54,8 @@ const ScrollReveal = ({
   return (
     <div
       ref={ref}
-      className={`scroll-reveal ${isVisible ? 'visible' : ''} ${className}`}
-      style={{ 
+      className={`scroll-reveal reveal-${variant} ${isVisible ? 'visible' : ''} ${className}`}
+      style={{
         transitionDelay: `${delay}s`,
       }}
     >

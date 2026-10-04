@@ -112,37 +112,62 @@ function CategoryManager() {
     }
   };
 
+  const cancelEdit = () => {
+    setFormData({ name: '' });
+    setEditingId(null);
+    setError('');
+  };
+
   return (
     <div className="category-manager">
-      <h2>Manage Categories</h2>
+      <div className="cm-header">
+        <span className="admin-eyebrow">Collections</span>
+        <h2>Manage Categories</h2>
+        <p>Group products into collections shown as filters on the storefront.</p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="category-form">
-        <input
-          type="text"
-          placeholder="Category Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-        />
-        {error && <p className="error">{error}</p>}
-        <button type="submit">
-          {editingId ? 'Update Category' : 'Add Category'}
-        </button>
-      </form>
+      <div className="cm-layout">
+        <form onSubmit={handleSubmit} className={`category-form ${editingId ? 'is-editing' : ''}`}>
+          <h3>{editingId ? 'Edit collection' : 'New collection'}</h3>
+          <label htmlFor="category-name">Category name</label>
+          <input
+            id="category-name"
+            type="text"
+            placeholder="e.g. Running Shoes"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
+          {error && <p className="cm-error">{error}</p>}
+          <button type="submit" className="cm-submit">
+            {editingId ? 'Update Category' : 'Add Category'}
+          </button>
+          {editingId && (
+            <button type="button" className="cm-cancel" onClick={cancelEdit}>Cancel edit</button>
+          )}
+        </form>
 
-      <div className="category-list">
-        {loading ? renderSkeletonCategories() : categories.map((cat) => (
-          <div key={cat.id} className="category-item">
-            <div>
-              <h3>{cat.name}</h3>
-              <small>{cat.product_count} products</small>
+        <div className="category-list">
+          {loading ? renderSkeletonCategories() : categories.map((cat, i) => (
+            <div
+              key={cat.id}
+              className={`category-item ${editingId === cat.id ? 'editing' : ''}`}
+              style={{ '--i': i }}
+            >
+              <div className="category-text">
+                <span className="category-initial" aria-hidden="true">{cat.name.charAt(0)}</span>
+                <div>
+                  <h3>{cat.name}</h3>
+                  <small>{cat.product_count} products</small>
+                </div>
+              </div>
+              <div className="category-actions">
+                <button onClick={() => handleEdit(cat)} className="edit-btn">Edit</button>
+                <button onClick={() => handleDelete(cat.id)} className="delete-btn">Delete</button>
+              </div>
             </div>
-            <div className="category-actions">
-              <button onClick={() => handleEdit(cat)} className="edit-btn">Edit</button>
-              <button onClick={() => handleDelete(cat.id)} className="delete-btn">Delete</button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

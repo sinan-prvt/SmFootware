@@ -1,106 +1,250 @@
-.category-manager {
-  background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* ==========================================================
+   FOOTONIA ADMIN — collections
+   ========================================================== */
+.cm-header {
+  margin-bottom: 30px;
 }
 
-.category-manager h2 {
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
+.cm-header h2 {
+  margin: 12px 0 8px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 4vw, 48px);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
+.cm-header p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.cm-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ---------- Form card ---------- */
 .category-form {
+  position: sticky;
+  top: 150px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px solid #ecf0f1;
+  gap: 10px;
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: #fff;
+  transition: box-shadow 0.4s ease;
 }
 
-.category-form input,
-.category-form textarea {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
+.category-form.is-editing {
+  box-shadow: 0 0 0 3px var(--accent);
+}
+
+.category-form h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.category-form label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.category-form input {
+  height: 50px;
+  padding: 0 18px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
   font-family: inherit;
+  font-size: 15px;
 }
 
-.category-form input:focus,
-.category-form textarea:focus {
+.category-form input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.category-form input:focus {
   outline: none;
-  border-color: #2980b9;
-  box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255, 77, 28, 0.2);
 }
 
-.category-form button {
-  background-color: #27ae60;
-  color: white;
-  padding: 12px;
-  font-weight: bold;
+.cm-error {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 77, 28, 0.15);
+  color: #ffb39c;
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.category-form button:hover {
-  background-color: #229954;
+.cm-submit,
+.cm-cancel {
+  height: 50px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.4s var(--ease-out);
 }
 
+.cm-submit {
+  margin-top: 6px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.cm-submit:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.cm-cancel {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cm-cancel:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* ---------- Collection tiles ---------- */
 .category-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
 }
 
 .category-item {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  gap: 22px;
+  padding: 20px;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  animation: tileIn 0.6s var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 0.05s);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+.category-item:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.3);
+}
+
+.category-item.editing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+@keyframes tileIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.category-text {
+  display: flex;
   align-items: center;
-  padding: 1.5rem;
-  background-color: #f9f9f9;
-  border-left: 4px solid #2980b9;
-  border-radius: 4px;
+  gap: 14px;
+}
+
+.category-initial {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.category-item:hover .category-initial {
+  background: var(--ink);
+  color: var(--lime);
 }
 
 .category-item h3 {
-  margin-bottom: 0.5rem;
-  color: #2c3e50;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .category-item small {
-  color: #7f8c8d;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .category-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .edit-btn {
-  background-color: #2980b9;
-  color: white;
-  padding: 8px 16px;
+  background: var(--ink);
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background: var(--accent);
 }
 
 .delete-btn {
-  background-color: #e74c3c;
-  color: white;
-  padding: 8px 16px;
+  background: transparent;
+  color: #c4320a;
+  border: 1.5px solid #ffd2c4;
 }
 
-@media (max-width: 768px) {
-  .category-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+.delete-btn:hover {
+  background: #c4320a;
+  border-color: #c4320a;
+  color: #fff;
+}
+
+.category-item.skeleton-item {
+  animation: none;
+}
+
+@media (max-width: 900px) {
+  .cm-layout {
+    grid-template-columns: 1fr;
   }
 
-  .category-actions {
-    width: 100%;
-  }
-
-  .edit-btn,
-  .delete-btn {
-    flex: 1;
+  .category-form {
+    position: static;
   }
 }

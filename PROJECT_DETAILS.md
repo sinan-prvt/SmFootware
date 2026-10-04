@@ -1,4 +1,4 @@
-# 👟 SmFootwear: Project Overview & Tech Stack
+# 👟 Footonia: Project Overview & Tech Stack
 
 A high-performance, mobile-first digital catalog and inventory management system designed for footwear retail.
 

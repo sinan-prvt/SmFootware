@@ -1,0 +1,74 @@
+.marquee {
+  overflow: hidden;
+  padding: 22px 0;
+  user-select: none;
+}
+
+.marquee-dark {
+  background: var(--ink);
+  color: #fff;
+  transform: rotate(-2deg) scale(1.04);
+  margin: -10px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.marquee-accent {
+  background: var(--accent);
+  color: var(--ink);
+  transform: rotate(1.5deg) scale(1.04);
+  margin-top: -18px;
+  position: relative;
+  z-index: 2;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+  padding-right: 36px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(24px, 3.6vw, 48px);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.marquee-star {
+  width: 0.6em;
+  height: 0.6em;
+  fill: var(--accent);
+  animation: starSpin 6s linear infinite;
+}
+
+.marquee-accent .marquee-star {
+  fill: var(--ink);
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes starSpin {
+  to { transform: rotate(360deg); }
+}

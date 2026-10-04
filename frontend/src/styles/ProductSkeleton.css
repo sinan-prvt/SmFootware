@@ -1,12 +1,11 @@
 .product-skeleton-card {
-  background: white;
-  border-radius: 20px;
+  background: var(--surface);
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid #f2f2f2;
+  border: 1px solid var(--line);
   animation: skeletonPulse 2s infinite ease-in-out;
 }
 
@@ -17,8 +16,8 @@
 }
 
 .skeleton-image-wrapper {
-  height: 220px;
-  background-color: #f7f7f7;
+  aspect-ratio: 5 / 4;
+  background-color: #ece9e2;
   position: relative;
   overflow: hidden;
 }
@@ -32,7 +31,7 @@
 
 .skeleton-line {
   height: 12px;
-  background-color: #f7f7f7;
+  background-color: #ece9e2;
   border-radius: 6px;
   position: relative;
   overflow: hidden;
@@ -63,8 +62,4 @@
   100% { transform: translateX(100%); }
 }
 
-@media (max-width: 768px) {
-  .skeleton-image-wrapper {
-    height: 160px;
-  }
-}
+

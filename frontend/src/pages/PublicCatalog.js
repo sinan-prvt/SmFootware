@@ -6,6 +6,11 @@ import ProductFilters from '../components/public/ProductFilters';
 import ProductGrid from '../components/public/ProductGrid';
 import ProductModal from '../components/public/ProductModal';
 import ScrollReveal from '../components/public/ScrollReveal';
+import Navbar from '../components/public/Navbar';
+import MotionLayer from '../components/public/MotionLayer';
+import Marquee from '../components/public/Marquee';
+import Statement from '../components/public/Statement';
+import SiteFooter from '../components/public/SiteFooter';
 
 // Removed dummy data to ensure only database content is displayed
 
@@ -34,6 +39,16 @@ function PublicCatalog() {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  // Arriving from another page via /#collection: scroll once the layout exists.
+  useEffect(() => {
+    if (window.location.hash !== '#collection') return undefined;
+    const timer = setTimeout(() => {
+      const el = document.getElementById('collection');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
 
 
 
@@ -88,57 +103,54 @@ function PublicCatalog() {
 
   return (
     <div className="public-catalog">
-      <ScrollReveal delay={0.2} threshold={0.01}>
-        <Hero />
-      </ScrollReveal>
+      <MotionLayer />
+      <Navbar />
 
-      <ScrollReveal threshold={0.1}>
-        <FeaturedSections />
-      </ScrollReveal>
+      <Hero />
 
-      <ScrollReveal threshold={0.2}>
+      <Marquee />
+      <Marquee
+        variant="accent"
+        reverse
+        items={['Sneakers', 'Formals', 'Loafers', 'Sandals', 'Boots', 'Kids', 'Sports']}
+      />
+
+      <Statement />
+
+      <FeaturedSections />
+
+      <section className="collection-section">
         <header className="catalog-header" id="collection">
-          <span className="superior-tag">SUPERIOR QUALITY</span>
-          <h1>OUR COLLECTION</h1>
-          <p>Explore our premium footwear selection</p>
+          <ScrollReveal variant="blur">
+            <span className="eyebrow">Superior quality</span>
+          </ScrollReveal>
+          <h2 className="catalog-title">
+            <ScrollReveal variant="clip" delay={0.05}><span>Our</span></ScrollReveal>
+            <ScrollReveal variant="clip" delay={0.18}><span className="catalog-title-accent">Collection</span></ScrollReveal>
+          </h2>
+          <ScrollReveal variant="up" delay={0.3}>
+            <p>Explore the full Footonia range — filter by category or search for a style.</p>
+          </ScrollReveal>
         </header>
-      </ScrollReveal>
 
-      <div className="catalog-container">
-        <ProductFilters
-          categories={categories}
-          filters={filters}
-          setFilters={setFilters}
-        />
+        <div className="catalog-container">
+          <ProductFilters
+            categories={categories}
+            filters={filters}
+            setFilters={setFilters}
+          />
 
-        <ProductGrid
-          products={products}
-          loading={loading}
-          onSelectProduct={setSelectedProduct}
-          onLoadMore={() => setPage(prev => prev + 1)}
-          hasMore={hasMore}
-        />
-      </div>
+          <ProductGrid
+            products={products}
+            loading={loading}
+            onSelectProduct={setSelectedProduct}
+            onLoadMore={() => setPage(prev => prev + 1)}
+            hasMore={hasMore}
+          />
+        </div>
+      </section>
 
-      <ScrollReveal threshold={0.1}>
-        <footer className="catalog-footer">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <h3>SM FOOTWEAR</h3>
-              <p>Premium authentic sneakers & apparel.</p>
-            </div>
-            <div className="footer-links">
-              <a href="/admin">Vendor Portal</a>
-              <a href="/contact">Contact Us</a>
-              <a href="#collection">Privacy Policy</a>
-              <a href="#collection">Terms of Service</a>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} SM Footwear. All rights reserved.</p>
-          </div>
-        </footer>
-      </ScrollReveal>
+      <SiteFooter />
 
       {selectedProduct && (
         <ProductModal
